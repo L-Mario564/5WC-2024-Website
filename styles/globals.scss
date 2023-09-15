@@ -1,8 +1,52 @@
+:root {
+  /* GENERAL */
+  --navbar-height: 80px;
+
+  /* COLORS GENERATED WITH "FOUNDATION: COLOR GENERATOR" FIGMA PLUGIN */
+
+  /* MATERIAL PROFILE */
+  --primary-100: hsl(165, 49%, 79%);
+  --primary-200: hsl(165, 49%, 69%);
+  --primary-300: hsl(165, 49%, 55%);
+  --primary-400: hsl(166, 57%, 46%);
+  --primary-500: hsl(165, 100%, 33%); // BASE COLOR
+  --primary-600: hsl(165, 100%, 30%);
+  --primary-700: hsl(165, 100%, 23%);
+  --primary-800: hsl(166, 100%, 18%);
+  --primary-900: hsl(165, 100%, 14%);
+
+  /* ATLASSIAN PROFILE */
+
+  /* NAVBAR COLOR */
+  --surface-0: hsl(0, 0%, 100%);
+  --surface-10: hsl(180, 11%, 98%);
+  --surface-20: hsl(240, 6%, 97%);
+  --surface-30: hsl(180, 3%, 93%);
+  --surface-40: hsl(180, 3%, 89%);
+  --surface-50: hsl(195, 4%, 78%);
+  --surface-60: hsl(192, 4%, 73%);
+  --surface-70: hsl(190, 4%, 69%);
+  --surface-80: hsl(189, 4%, 64%);
+  --surface-90: hsl(189, 3%, 59%);
+  --surface-100: hsl(193, 4%, 54%);
+  --surface-200: hsl(192, 4%, 48%);
+  --surface-300: hsl(192, 5%, 43%);
+  --surface-400: hsl(191, 6%, 39%);
+  --surface-500: hsl(194, 8%, 34%);
+  --surface-600: hsl(189, 9%, 29%);
+  --surface-700: hsl(189, 12%, 23%);
+  --surface-800: hsl(191, 17%, 18%);
+  --surface-900: hsl(191, 23%, 14%); // BASE COLOR
+}
+
 html,
 body {
-  background-color: black;
-  color: white;
+  margin: 0;
+  padding: 0;
+  background-color: var(--surface-40);
+  color: var(--surface-900);
   overflow-x: hidden;
+  font-family: var(--inter-font), 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 a {
@@ -12,4 +56,15 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+/* Each page will have the main parent that will use a margin that match the navbar height */
+main {
+  margin-top: var(--navbar-height);
+}
+
+button {
+  border: 0;
+  outline: 0;
+  font-family: var(--inter-font), 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
