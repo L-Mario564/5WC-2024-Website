@@ -1,0 +1,8 @@
+.container {
+  max-width: 1000px;
+  margin: 120px auto;
+
+  & :is(h1, h2, h3, strong) {
+    color: var(--primary-900);
+  }
+}
