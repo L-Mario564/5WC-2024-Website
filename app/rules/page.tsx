@@ -6,7 +6,6 @@ import styles from './rules.module.scss';
 export default function RulesPage() {
   return (
     <div className={styles.container}>
-      {' '}
       <RulesMDX />
     </div>
   );

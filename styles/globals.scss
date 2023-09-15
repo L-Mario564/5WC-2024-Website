@@ -68,3 +68,7 @@ button {
   outline: 0;
   font-family: var(--inter-font), 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+::selection {
+  background: var(--primary-200);
+}
