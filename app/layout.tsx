@@ -1,5 +1,5 @@
 import Navbar from 'components/Navbar/Navbar';
-import { Inter } from 'next/font/google';
+import { Barlow } from 'next/font/google';
 import 'styles/globals.scss';
 
 export const metadata = {
@@ -10,12 +10,16 @@ export const metadata = {
   description: 'Website of 5 Digit World Cup'
 };
 
-const interFont = Inter({ variable: '--inter-font', subsets: ['latin'] });
+const barlowFont = Barlow({
+  variable: '--barlow-font',
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  subsets: ['latin']
+});
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={interFont.variable}>
+      <body className={barlowFont.variable}>
         <Navbar />
         <main>{children}</main>
       </body>
