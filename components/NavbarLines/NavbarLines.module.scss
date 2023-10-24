@@ -1,0 +1,33 @@
+.container {
+  width: auto;
+  height: var(--navbar-height);
+  display: flex;
+  flex-flow: row;
+  gap: 5px;
+}
+
+.line {
+  width: 4px;
+  height: 100%;
+  background-color: white;
+
+  &:first-child {
+    background-color: var(--color-lines-1);
+  }
+
+  &:nth-child(2) {
+    background-color: var(--color-lines-2);
+  }
+
+  &:nth-child(3) {
+    background-color: var(--color-lines-3);
+  }
+
+  &:nth-child(4) {
+    background-color: var(--color-lines-4);
+  }
+
+  &:last-child {
+    background-color: var(--color-lines-5);
+  }
+}

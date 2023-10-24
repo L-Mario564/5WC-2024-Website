@@ -1,6 +1,6 @@
 :root {
   /* GENERAL */
-  --navbar-height: 80px;
+  --navbar-height: 90px;
 
   /* COLORS GENERATED WITH "FOUNDATION: COLOR GENERATOR" FIGMA PLUGIN */
 
@@ -37,6 +37,12 @@
   --surface-700: hsl(189, 12%, 23%);
   --surface-800: hsl(191, 17%, 18%);
   --surface-900: hsl(191, 23%, 14%); // BASE COLOR
+
+  --color-lines-1: hsl(0, 77%, 70%);
+  --color-lines-2: hsl(50, 75%, 48%);
+  --color-lines-3: hsl(166, 47%, 38%);
+  --color-lines-4: hsl(198, 98%, 64%);
+  --color-lines-5: hsl(0, 0%, 100%);
 }
 
 html,
@@ -46,7 +52,7 @@ body {
   background-color: var(--surface-40);
   color: var(--surface-900);
   overflow-x: hidden;
-  font-family: var(--inter-font), 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--barlow-font), 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 a {
