@@ -1,0 +1,11 @@
+.logo {
+  height: 87px;
+  width: 72px;
+  background-image: url('../../public/logo.png');
+  background-repeat: no-repeat;
+  transition: all 0.3s ease-out;
+}
+
+.logo:hover {
+  background-image: url('../../public/logo-alt.png');
+}

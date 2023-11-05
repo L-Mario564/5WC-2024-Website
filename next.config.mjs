@@ -1,11 +1,18 @@
 await import('./env.mjs');
+import createMDX from '@next/mdx';
+
+const withMDX = createMDX({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: []
+  }
+});
 
 /** @type {import("next").NextConfig} */
 const config = {
-  reactStrictMode: true,
-  experimental: {
-    appDir: true
-  }
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+  reactStrictMode: true
 };
 
-export default config;
+export default withMDX(config);
