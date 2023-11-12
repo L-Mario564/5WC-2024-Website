@@ -1,0 +1,52 @@
+.button {
+  width: 455px;
+  height: 85px;
+  border-radius: 15px;
+  background-color: var(--design-green);
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 80px;
+  grid-template-areas: 'text flower';
+  align-items: center;
+  overflow: hidden;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  & .border {
+    inset: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    border: 4px solid var(--design-green);
+    z-index: 2;
+  }
+
+  & .text {
+    color: #ffffff;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 48px;
+    letter-spacing: 0.125em;
+    text-align: center;
+    grid-area: text;
+    padding: 0 0 0 22px;
+  }
+
+  & .flower {
+    grid-area: flower;
+    position: relative;
+    height: 100%;
+    width: 102%;
+    z-index: 1;
+    overflow: hidden;
+
+    & img {
+      object-fit: contain;
+      transform: rotate(-18deg) scale(1.4);
+      object-position: 12px 4px;
+    }
+  }
+}
