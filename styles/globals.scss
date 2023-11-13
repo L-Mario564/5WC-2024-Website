@@ -43,6 +43,9 @@
   --color-lines-3: hsl(166, 47%, 38%);
   --color-lines-4: hsl(198, 98%, 64%);
   --color-lines-5: hsl(0, 0%, 100%);
+
+  --design-dark-green: hsl(189, 28%, 10%);
+  --design-green: hsl(166, 100%, 33%);
 }
 
 html,
@@ -67,6 +70,7 @@ a {
 /* Each page will have the main parent that will use a margin that match the navbar height */
 main {
   margin-top: var(--navbar-height);
+  min-height: calc(100dvh - var(--navbar-height));
 }
 
 button {
