@@ -7,11 +7,11 @@
 .logo {
   height: inherit;
   width: inherit;
-  background-image: url('../../public/logo.png');
+  background-image: url('../../../public/logo.png');
   background-repeat: no-repeat;
   transition: all 0.3s ease-out;
 }
 
 .logo:hover {
-  background-image: url('../../public/logo-alt.png');
+  background-image: url('../../../public/logo-alt.png');
 }

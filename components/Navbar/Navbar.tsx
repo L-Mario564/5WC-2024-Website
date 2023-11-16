@@ -2,9 +2,9 @@
 
 /* import Image from 'next/image'; */
 import clsx from 'clsx';
-import LoginButton from 'components/LoginButton/LoginButton';
-import NavbarLogo from 'components/NavbarLogo/NavbarLogo';
-import ResponsiveNavBar from '../ResponsiveNavBar/ResponsiveNavBar';
+import LoginButton from '@/components/Navbar/LoginButton/LoginButton';
+import NavbarLogo from '@/components/Navbar/Logo/NavbarLogo';
+import ResponsiveNavBar from './Responsive/ResponsiveNavbar';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.scss';

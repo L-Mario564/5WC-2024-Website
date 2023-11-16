@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { Menu } from 'lucide-react';
 import { useState } from 'react';
-import styles from './ResponsiveNavBar.module.scss';
+import styles from './ResponsiveNavbar.module.scss';
 
 interface Props {
   links: {
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function ResponsiveNavBar({ links, pathname }: Props) {
-  const [showMenu, setShowMenuState] = useState(true);
+  const [showMenu, setShowMenuState] = useState(false);
   
   function toggleMenu() {
     setShowMenuState((showMenu) => !showMenu);
