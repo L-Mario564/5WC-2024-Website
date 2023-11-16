@@ -24,3 +24,45 @@
     color: var(--primary-900);
   }
 }
+
+@media only screen and (max-width: 1200px) {
+  .loginButton {
+    width: 220px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .loginButton {
+    width: 190px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .loginButton {
+    width: 272px;
+  }
+}
+
+@media only screen and (max-width: 520px) {
+  .loginButton {
+    width: 220px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .loginButton {
+    width: 190px;
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  .loginButton {
+    width: 160px;
+  }
+}
+
+@media only screen and (max-width: 410px) {
+  .loginButton {
+    width: 120px;
+  }
+}

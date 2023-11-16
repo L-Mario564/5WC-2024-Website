@@ -2,13 +2,14 @@
   width: 100%;
   height: var(--navbar-height);
   background-color: var(--surface-900);
-  display: flex;
-  flex-flow: row;
+  display: grid;
+  grid-template-columns: 72px auto max-content;
   align-items: center;
-  padding: 5px 0px 5px 20px;
+  padding: 0px 0px 0px 20px;
   color: #ffffff;
   position: fixed;
   box-shadow: 0px 4px 10px 0px rgba(17, 17, 26, 0.18);
+  z-index: 10;
 }
 
 .logo {
@@ -25,10 +26,7 @@
   font-weight: 400;
   font-size: 12pt;
   margin: auto;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
 
   & li {
     display: flex;
@@ -63,5 +61,23 @@
       height: 1px;
       background-color: var(--primary-400);
     }
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .routes {
+    gap: 0 4.5em;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .routes {
+    gap: 0 3.5em;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .routes {
+    display: none;
   }
 }
