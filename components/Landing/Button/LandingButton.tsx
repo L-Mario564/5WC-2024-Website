@@ -2,7 +2,7 @@
 import flowerSVG from '@/public/flower.svg';
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from './landingbutton.module.scss';
+import styles from './Landingbutton.module.scss';
 
 export default function LandingButton() {
   return (

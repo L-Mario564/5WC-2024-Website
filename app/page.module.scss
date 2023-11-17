@@ -40,3 +40,15 @@
     width: 100%;
   }
 }
+
+@media (max-width: 560px) {
+  .content {
+    padding: 5em 3em;
+  }
+}
+
+@media (max-width: 410px) {
+  .content {
+    padding: 3em 1em;
+  }
+}
