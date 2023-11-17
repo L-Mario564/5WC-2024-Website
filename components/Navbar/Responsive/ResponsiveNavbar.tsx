@@ -19,6 +19,10 @@ export default function ResponsiveNavBar({ links, pathname }: Props) {
     setShowMenuState((showMenu) => !showMenu);
   }
 
+  function closeMenu() {
+    setShowMenuState(false);
+  }
+
   return (
     <>
       <div className={styles.btnContainer}>
@@ -29,7 +33,7 @@ export default function ResponsiveNavBar({ links, pathname }: Props) {
       {showMenu ? <ul className={styles.menu}>
         {links.map(({ href, label }) => (
           <li key={label} className={clsx((pathname === href) ? styles.active : null)}>
-            <Link href={href}>{label}</Link>
+            <Link href={href} onClick={closeMenu}>{label}</Link>
           </li>
         ))}
       </ul> : undefined}
