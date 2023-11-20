@@ -1,5 +1,5 @@
 'use client';
-import NavbarLines from 'components/NavbarLines/NavbarLines';
+import NavbarLines from '@/components/Navbar/Lines/NavbarLines';
 import styles from './LoginButton.module.scss';
 
 export default function LoginButton() {

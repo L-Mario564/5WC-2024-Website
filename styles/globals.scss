@@ -2,6 +2,9 @@
   /* GENERAL */
   --navbar-height: 90px;
 
+  /* ANIMATIONS */
+  --animate-fade-in: fade-in;
+
   /* COLORS GENERATED WITH "FOUNDATION: COLOR GENERATOR" FIGMA PLUGIN */
 
   /* MATERIAL PROFILE */
@@ -81,4 +84,13 @@ button {
 
 ::selection {
   background: var(--primary-200);
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
