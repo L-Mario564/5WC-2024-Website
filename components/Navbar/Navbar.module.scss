@@ -26,7 +26,10 @@
   font-weight: 400;
   font-size: 12pt;
   margin: auto;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   & li {
     display: flex;
@@ -64,8 +67,24 @@
   }
 }
 
+@media only screen and (max-width: 1410px) {
+  .routes {
+    gap: 0 4.5em;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .routes {
+    gap: 0 3.5em;
+  }
+}
+
 @media only screen and (max-width: 1200px) {
   .routes {
+    position: relative;
+    top: initial;
+    left: initial;
+    transform: initial;
     gap: 0 4.5em;
   }
 }
