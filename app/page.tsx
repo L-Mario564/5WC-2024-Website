@@ -3,8 +3,15 @@ import BottomLandingBar from 'components/LandingBars/BottomLandingBar';
 import TopLandingBar from 'components/LandingBars/TopLandingBar';
 import LandingLogo from 'components/LandingLogo/LandingLogo';
 import styles from './page.module.scss';
+import { buildApiUrl } from '@/utils';
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const resp = await fetch(buildApiUrl('/auth/session'));
+
+  if (resp.ok) {
+    console.log(await resp.json())
+  }
+
   return (
     <div className={styles.container}>
       <TopLandingBar />

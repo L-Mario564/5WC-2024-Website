@@ -82,3 +82,67 @@ button {
 ::selection {
   background: var(--primary-200);
 }
+
+.backdrop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 50;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--surface-900);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  min-width: 20rem;
+
+  h2 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  font-weight: 500;
+  font-size: medium;
+  color: black;
+  background-color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    color: rgb(50, 50, 50);
+  }
+
+  &:active {
+    transform: scale(0.9);
+    background-color: rgb(205, 205, 205);
+  }
+}
+
+.btn-primary {
+  background-color: var(--primary-500);
+
+  &:hover {
+    color: initial;
+    background-color: var(--primary-400);
+  }
+
+  &:active {
+    background-color: var(--primary-600);
+  }
+}
