@@ -1,6 +1,7 @@
 .container {
   max-width: 1000px;
   margin: 120px auto;
+  padding: 0 3em;
 
   & :is(h1, h2, h3, strong) {
     color: var(--primary-900);
@@ -8,6 +9,7 @@
 
   & table {
     width: 100%;
+    min-width: max-content;
     border-collapse: collapse;
     text-align: center;
     border: 1px solid;
@@ -23,10 +25,19 @@
     & td + td,
     th + th {
       border-left: 1px solid;
-      padding: 8px 0px;
+      padding: 8px 16px;
     }
     tr + tr {
       border-top: 1px solid;
     }
+    td {
+      padding: 8px 16px;
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .container  {
+    padding: 0 2em;
   }
 }

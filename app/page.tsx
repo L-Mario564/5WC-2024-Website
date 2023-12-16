@@ -1,7 +1,7 @@
-import LandingButton from '@/components/LandingButton/LandingButton';
-import BottomLandingBar from 'components/LandingBars/BottomLandingBar';
-import TopLandingBar from 'components/LandingBars/TopLandingBar';
-import LandingLogo from 'components/LandingLogo/LandingLogo';
+import LandingButton from '@/components/Landing/Button/LandingButton';
+import BottomLandingBar from '@/components/Landing/Bars/BottomLandingBar';
+import TopLandingBar from '@/components/Landing/Bars/TopLandingBar';
+import LandingLogo from '@/components/Landing/Logo/LandingLogo';
 import styles from './page.module.scss';
 
 export default function LandingPage() {

@@ -12,7 +12,7 @@
   background-color: hsl(210, 26%, 93%);
   height: 100%;
   margin: auto;
-  padding: 5em 5em 0 5em;
+  padding: 5em;
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -38,5 +38,17 @@
 @media (max-width: 1494px) {
   .content {
     width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .content {
+    padding: 5em 3em;
+  }
+}
+
+@media (max-width: 410px) {
+  .content {
+    padding: 3em 1em;
   }
 }
