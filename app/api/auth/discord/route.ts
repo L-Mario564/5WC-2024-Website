@@ -1,8 +1,8 @@
+import { env } from '@/env.mjs';
 import { redirects } from '@/utils/server/api';
 import { redirect } from 'next/navigation';
-import type { NextRequest } from 'next/server';
 
-export function GET({ nextUrl }: NextRequest) {
-  const url = redirects.promptLogin('discord', nextUrl.origin + '/login');
+export function GET() {
+  const url = redirects.promptLogin('discord', env.NEXT_PUBLIC_ORIGIN + '/login');
   redirect(url);
 }

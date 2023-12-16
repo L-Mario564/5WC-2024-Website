@@ -1,21 +1,35 @@
 'use client';
 import { buildApiUrl } from '@/utils';
-import { redirect } from 'next/navigation';
-import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAsyncEffect } from '@/utils/hooks';
+import styles from './login.module.scss';
 
 export default function LoginPage() {
-  useEffect(() => {
-    (async () => {
-      const resp = await fetch(buildApiUrl('/auth/session/login'));
+  const router = useRouter();
 
-      if (!resp.ok) {
-        // TODO: Display error to user
-        return;
-      }
+  useAsyncEffect(async () => {
+    let resp: Response | undefined;
 
-      redirect('/');
-    })();
-  });
+    try {
+      resp = await fetch(buildApiUrl('/auth/session/login'), {
+        credentials: 'include'
+      });
+    } catch(err) {
+      console.error(err);
+    }
+    
+    
+    if (!resp?.ok) {
+      const data = await resp?.text();
+      console.info('Response: ' + data);
+      // TODO: Display error to user
+      return;
+    }
 
-  return <></>;
+    router.push('/');
+  }, []);
+
+  return <div className={styles.container}>
+    <span>Logging into 5WC, please wait a moment...</span>
+  </div>;
 }
