@@ -1,3 +1,4 @@
+import UserProvider from '@/contexts/UserContext';
 import Navbar from 'components/Navbar/Navbar';
 import { Barlow } from 'next/font/google';
 import 'styles/globals.scss';
@@ -19,10 +20,12 @@ const barlowFont = Barlow({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={barlowFont.variable}>
-        <Navbar />
-        <main>{children}</main>
-      </body>
+      <UserProvider>
+        <body className={barlowFont.variable}>
+          <Navbar />
+          <main>{children}</main>
+        </body>
+      </UserProvider>
     </html>
   );
 }

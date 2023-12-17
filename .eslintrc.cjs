@@ -37,7 +37,8 @@ const config = {
     'prefer-const': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
     'quote-props': ['warn', 'consistent'],
-    'unused-export-let': 'off'
+    'unused-export-let': 'off',
+    '@typescript-eslint/no-floating-promises': 'off'
   }
 };
 

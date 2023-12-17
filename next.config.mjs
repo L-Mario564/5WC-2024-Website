@@ -12,7 +12,10 @@ const withMDX = createMDX({
 /** @type {import("next").NextConfig} */
 const config = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-  reactStrictMode: true
+  reactStrictMode: true,
+  images: {
+    domains: ['a.ppy.sh']
+  }
 };
 
 export default withMDX(config);
