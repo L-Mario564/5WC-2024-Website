@@ -17,10 +17,12 @@ export default function UserProvider({ children }: Props): JSX.Element {
   
   useAsyncEffect(async (): Promise<void> => {
     let resp: Response | undefined;
-    const url = buildApiUrl('/auth/session/login');
+    const url = buildApiUrl('/auth/session');
 
     try {
-      resp = await fetch(url);
+      resp = await fetch(url, {
+        credentials: 'include'
+      });
     } catch(err) {
       console.error(err);
     }
@@ -40,15 +42,18 @@ export default function UserProvider({ children }: Props): JSX.Element {
       // TODO: Display error to user / improve error handling
       throw Error(`Server (at "${url}") sent a response different than the one expected`);
     }
-
+    
     const user = parsed.data;
+    console.info(user);
 
     if (user.logged_in_user_id !== null && user.osu !== null && user.discord !== null) {
       setUser(user as AuthUser);
     }
   }, []);
 
-  return <UserContext.Provider value={useMemo(() => user, [user])}>
-    {children}
-  </UserContext.Provider>;
+  return (
+    <UserContext.Provider value={useMemo(() => user, [user])}>
+      {children}
+    </UserContext.Provider>
+  );
 }

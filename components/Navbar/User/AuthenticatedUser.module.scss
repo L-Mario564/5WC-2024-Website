@@ -1,0 +1,209 @@
+.container {
+  display: flex;
+  flex-flow: row;
+  margin-left: auto;
+}
+
+.userBtn {
+  position: relative;
+  width: 272px;
+  height: var(--navbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: transparent;
+  color: #ffffff;
+  font-size: 16px;
+  transition: all 0.4s ease-out;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+
+  &:hover {
+    background-color: var(--primary-400);
+    color: var(--primary-900);
+
+    .grayLine {
+      background-color: var(--primary-600);
+    }
+  }
+
+  .container {
+    width: 230px;
+  }
+
+  .bgDeco {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--surface-900);
+    opacity: 0.025;
+  }
+
+  .pfp {
+    position: relative;
+    display: block;
+    border-radius: 100%;
+    border: 2px solid var(--surface-20);
+    z-index: 2;
+    transition: all 0.4s ease-out;
+  }
+
+  .rightContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .username {
+    width: max-content;
+    display: inline-block;
+    margin: 2px 0 2px 11px;
+  }
+
+  .lines {
+    position: relative;
+    width: calc(100% + 30px);
+    left: -15px;
+    z-index: 1;
+  }
+
+  .grayLine, .whiteLine {
+    width: 100%;
+    height: 1px;
+    margin-bottom: 2px;
+    transition: all 0.4s ease-out;
+  }
+
+  .grayLine {
+    background-color: var(--surface-500);
+  }
+
+  .whiteLine {
+    background-color: var(--surface-50);
+  }
+}
+
+.menu {
+  position:  absolute;
+  top: calc(var(--navbar-height) + 5px);
+  right: 5px;
+  width: 262px;
+  font-weight: 400;
+  font-size: 12pt;
+  padding: 1em;
+  background-color: var(--surface-900);
+  border-radius: 0.5rem;
+  box-shadow: 0px 4px 10px 0px rgba(17, 17, 26, 0.24);
+  opacity: 0;
+  animation: var(--animate-fade-in) 0.1s forwards ease-out;
+
+  .divider {
+    margin: 1em 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  & ul {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    gap: 0.1rem;
+    list-style: none;
+  }
+
+  & li {
+    position: relative;
+    padding: 8px;
+    border-radius: 5px;
+    transition: all 0.4s ease-out;
+    cursor: pointer;
+
+    &:is(:hover, .active) {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .userBtn {
+    width: 220px;
+
+    .container {
+      width: 180px;
+    }
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .userBtn {
+    width: 190px;
+
+    .container {
+      width: 150px;
+    }
+
+    .username {
+      opacity: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .userBtn {
+    width: 272px;
+
+    .container {
+      width: 230px;
+    }
+
+    .username {
+      opacity: 1;
+    }
+  }
+}
+
+@media only screen and (max-width: 520px) {
+  .userBtn {
+    width: 220px;
+
+    .container {
+      width: 180px;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .userBtn {
+    width: 190px;
+
+    .container {
+      width: 150px;
+    }
+
+    .username {
+      opacity: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 440px) {
+  .userBtn {
+    width: 160px;
+
+    .container {
+      width: 120px;
+    }
+  }
+}
+
+@media only screen and (max-width: 410px) {
+  .userBtn {
+    width: 120px;
+
+    .container {
+      width: 80px;
+    }
+  }
+}
