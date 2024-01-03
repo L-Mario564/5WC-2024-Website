@@ -22,7 +22,7 @@ export default function LoginButton() {
           <div className='modal'>
             <h2>Login</h2>
             <p>To login to 5WC, you must authenticate with your osu! and Discord account.</p>
-            <div className={styles.modalBtnContainer}>
+            <div className='btn-container'>
               <Link href='/api/auth/osu' className='btn btn-primary'>
                 Login
               </Link>

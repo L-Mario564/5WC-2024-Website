@@ -20,12 +20,12 @@ export default function LoginPage() {
 
     try {
       resp = await fetch(buildApiUrl('/auth/session/login'), {
-        credentials: 'include'
+        credentials: 'include',
+        cache: 'no-cache'
       });
     } catch(err) {
       console.error(err);
     }
-    
     
     if (!resp?.ok) {
       const data = await resp?.text();
@@ -35,7 +35,7 @@ export default function LoginPage() {
     }
 
     console.info(await resp.text());
-    location.href = env.NEXT_PUBLIC_ORIGIN;
+    location.href = `${env.NEXT_PUBLIC_ORIGIN}?prompt_discord=true`;
   }, [shouldFetch]);
 
   return <div className={styles.container}>
