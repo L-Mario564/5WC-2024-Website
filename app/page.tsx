@@ -1,6 +1,6 @@
-import LandingButton from '@/components/Landing/Button/LandingButton';
 import BottomLandingBar from '@/components/Landing/Bars/BottomLandingBar';
 import TopLandingBar from '@/components/Landing/Bars/TopLandingBar';
+import LandingButton from '@/components/Landing/Button/LandingButton';
 import LandingLogo from '@/components/Landing/Logo/LandingLogo';
 import styles from './page.module.scss';
 
