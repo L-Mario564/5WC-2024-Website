@@ -110,7 +110,7 @@ export default function AuthenticatedUser({ user }: Props) {
   }
 
   function changeDiscordAccount() {
-    location.href = `${env.NEXT_PUBLIC_ORIGIN}/api/auth/osu`
+    location.href = `${env.NEXT_PUBLIC_ORIGIN}/api/auth/discord`;
   }
 
   return (

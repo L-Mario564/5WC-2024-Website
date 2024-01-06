@@ -40,11 +40,11 @@ export default function UserProvider({ children }: Props): JSX.Element {
 
     if (!parsed.success) {
       // TODO: Display error to user / improve error handling
+      console.info('Response: ' + data);
       throw Error(`Server (at "${url}") sent a response different than the one expected`);
     }
     
     const user = parsed.data;
-    console.info(user);
 
     if (user.logged_in_user_id !== null && user.osu !== null && user.discord !== null) {
       setUser(user as AuthUser);
