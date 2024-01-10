@@ -21,16 +21,16 @@ export default function Navbar() {
     href: '/rules',
     label: 'Info'
   }, {
-    href: '/teams',
+    href: '/',
     label: 'Teams'
   }, {
-    href: '/schedule',
+    href: '/',
     label: 'Schedule'
   }, {
-    href: '/mappools',
+    href: '/',
     label: 'Mappools'
   }, {
-    href: '/staff',
+    href: '/',
     label: 'Staff'
   }];
 

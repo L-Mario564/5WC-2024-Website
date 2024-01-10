@@ -150,7 +150,14 @@ export default function AuthenticatedUser({ user }: Props) {
       {showMenu ? (
         <div ref={menuRef} className={styles.menu}>
           <ul>
-          <li>
+            {user ? (
+              <li>
+                <a href="/organize-team">
+                  Organize Team
+                </a>
+              </li>
+            ) : undefined}
+            <li>
               <button onClick={promptDiscordAccountChange}>
                 Change Discord Account
               </button>

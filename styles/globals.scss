@@ -185,6 +185,15 @@ button {
   }
 }
 
+.simple-message-container {
+  width: 100vw;
+  height: calc(100vh - var(--navbar-height));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+}
+
 @keyframes fade-in {
   0% {
     opacity: 0;

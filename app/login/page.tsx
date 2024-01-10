@@ -3,7 +3,6 @@
 import { env } from '@/env.mjs';
 import { buildApiUrl } from '@/utils';
 import { useAsyncEffect } from '@/utils/hooks';
-import styles from './login.module.scss';
 import { useEffect, useState } from 'react';
 
 export default function LoginPage() {
@@ -38,7 +37,7 @@ export default function LoginPage() {
     location.href = `${env.NEXT_PUBLIC_ORIGIN}?prompt_discord=true`;
   }, [shouldFetch]);
 
-  return <div className={styles.container}>
+  return <div className='simple-message-container'>
     <span>Logging into 5WC, please wait a moment...</span>
   </div>;
 }

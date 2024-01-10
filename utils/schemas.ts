@@ -7,7 +7,7 @@ export const authUserResponseSchema = z.object({
   discord: z.object({
     id: z.string(),
     username: z.string(),
-    avatar: z.string(),
+    avatar: z.string().nullable(),
     global_name: z.string()
   }).nullable(),
   osu: z.object({
@@ -20,4 +20,18 @@ export const authUserResponseSchema = z.object({
       name: z.string()
     })
   }).nullable()
+});
+
+export const playerSchema = z.object({
+  user_id: z.number().int(),
+  discord_user_id: z.string(),
+  discord_username: z.string(),
+  osu_user_id: z.number().int(),
+  osu_username: z.string()
+});
+
+export const teamSchema = z.object({
+  osu_flag: z.string(),
+  roster: z.array(playerSchema),
+  candidates: z.array(playerSchema)
 });
