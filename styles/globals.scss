@@ -18,6 +18,17 @@
   --primary-800: hsl(166, 100%, 18%);
   --primary-900: hsl(165, 100%, 14%);
 
+  /* ERROR */
+  --error-100: hsl(0, 49%, 79%);
+  --error-200: hsl(0, 49%, 69%);
+  --error-300: hsl(0, 49%, 55%);
+  --error-400: hsl(1, 57%, 46%);
+  --error-500: hsl(0, 100%, 33%);
+  --error-600: hsl(0, 100%, 30%);
+  --error-700: hsl(0, 100%, 23%);
+  --error-800: hsl(1, 100%, 18%);
+  --error-900: hsl(0, 100%, 14%);
+
   /* ATLASSIAN PROFILE */
 
   /* NAVBAR COLOR */
@@ -50,8 +61,13 @@
   --design-dark-green: hsl(189, 28%, 10%);
   --design-green: hsl(166, 100%, 33%);
 
+
   // TOAST COLORS
   --toast-error: hsl(0, 82%, 70%);
+
+  /* MISC. COLORS */
+  --error-500: hsl(0, 62%, 48%);
+
 }
 
 html,
@@ -110,10 +126,18 @@ button {
   border-radius: 0.5rem;
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   min-width: 20rem;
+  max-width: 40rem;
+  width: 80%;
 
   h2 {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
+  }
+
+  .btn-container {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
   }
 }
 
@@ -150,6 +174,19 @@ button {
 
   &:active {
     background-color: var(--primary-600);
+  }
+}
+
+.btn-error {
+  background-color: var(--error-500);
+
+  &:hover {
+    color: initial;
+    background-color: var(--error-400);
+  }
+
+  &:active {
+    background-color: var(--error-600);
   }
 }
 
