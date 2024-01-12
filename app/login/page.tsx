@@ -22,7 +22,8 @@ export default function LoginPage() {
 
     try {
       resp = await fetch(buildApiUrl('/auth/session/login'), {
-        credentials: 'include'
+        credentials: 'include',
+        cache: 'no-cache'
       });
     } catch(err) {
       console.error(err);
@@ -40,7 +41,7 @@ export default function LoginPage() {
     }
 
     console.info(await resp.text());
-    location.href = env.NEXT_PUBLIC_ORIGIN;
+    location.href = `${env.NEXT_PUBLIC_ORIGIN}?prompt_discord=true`;
   }, [shouldFetch]);
 
   console.log(error)
