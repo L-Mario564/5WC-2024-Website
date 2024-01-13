@@ -1,14 +1,18 @@
 import UserProvider from '@/contexts/UserContext';
 import Navbar from 'components/Navbar/Navbar';
+import type { Metadata } from 'next';
 import { Barlow } from 'next/font/google';
 import 'styles/globals.scss';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: {
     template: '%s | 5WC',
     default: '5WC | 5 Digit World Cup'
   },
-  description: 'Website of 5 Digit World Cup'
+  description: 'Website of 5 Digit World Cup',
+  icons: {
+    icon: '/favicon.png'
+  }
 };
 
 const barlowFont = Barlow({
