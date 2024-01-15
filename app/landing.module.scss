@@ -1,0 +1,105 @@
+$logoHeight: 320px;
+$color1: #FE2456;
+$color2: #1D1D1D;
+
+.fullLogoContainer {
+  font-family: 'Coluna Rounded';
+  width: 100vw;
+  height: calc(100vh - var(--navbar-height));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  height: $logoHeight;
+  opacity: 0;
+  animation: var(--animate-fade-in) 0.6s ease 0.4s forwards;
+}
+
+.nameContainer {
+  width: max-content;
+  height: $logoHeight;
+  max-height: $logoHeight;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+}
+
+.five, .digit, .worldCup {
+  position: relative;
+  display: inline-block;
+  line-height: 100%;
+  opacity: 0;
+  animation-duration: 0.6s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease;
+  animation-delay: 0.15s;
+}
+
+.five {
+  padding-right: calc($logoHeight * 0.02);
+  max-height: $logoHeight;
+  color: $color1;
+  font-size: calc($logoHeight + ($logoHeight * 0.25));
+  grid-row-start: 1;
+  grid-row-end: 3;
+  animation-name: five-entrance;
+}
+
+.digit {
+  max-height: calc($logoHeight * 0.601);
+  color: $color2;
+  font-size: calc(($logoHeight * 0.601) + ($logoHeight * 0.18));
+  animation-name: digit-entrance;
+}
+
+.worldCup {
+  padding-left: calc($logoHeight * 0.02);
+  max-height: calc($logoHeight * 0.27);
+  color: $color2;
+  font-size: calc(($logoHeight * 0.27) + ($logoHeight * 0.1));
+  animation-name: world-cup-entrance;
+}
+
+.container {
+  width: 100dvw;
+  min-height: calc(100dvh - var(--navbar-height));
+  position: relative;
+  background-color: hsl(208, 25%, 88%);
+  display: grid;
+  grid-template-rows: 32px auto 50px;
+}
+
+@keyframes five-entrance {
+  0% {
+    opacity: 0;
+    left: calc($logoHeight * -0.75);
+  }
+  100% {
+    opacity: 1;
+    left: 0;
+  }
+}
+
+@keyframes digit-entrance {
+  0% {
+    opacity: 0;
+    top: calc($logoHeight * -0.75);
+  }
+  100% {
+    opacity: 1;
+    top: 0;
+  }
+}
+
+@keyframes world-cup-entrance {
+  0% {
+    opacity: 0;
+    bottom: calc($logoHeight * -0.75);
+  }
+  100% {
+    opacity: 1;
+    bottom: 0;
+  }
+}

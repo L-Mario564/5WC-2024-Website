@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Coluna Rounded';
+  src: url('/Coluna_Rounded.otf');
+}
+
 :root {
   /* GENERAL */
   --navbar-height: 80px;
@@ -21,17 +26,17 @@
   --primary-950: rgb(80, 1, 30);
 
   /* ERROR */
-  --error-50: rgb(253, 244, 242);
-  --error-100: rgb(253, 230, 229);
-  --error-200: rgb(253, 204, 198);
-  --error-300: rgb(252, 159, 133);
-  --error-400: rgb(252, 105, 83);
-  --error-500: rgb(250, 65, 49);
-  --error-600: rgb(228, 40, 33);
-  --error-700: rgb(192, 29, 26);
-  --error-800: rgb(158, 31, 25);
-  --error-900: rgb(136, 32, 25);
-  --error-950: rgb(80, 1, 30);
+  --error-50: rgb(255, 249, 220);
+  --error-100: rgb(255, 242, 179);
+  --error-200: rgb(255, 234, 132);
+  --error-300: rgb(255, 219, 74);
+  --error-400: rgb(255, 202, 24);
+  --error-500: rgb(255, 187, 0);
+  --error-600: rgb(239, 169, 0);
+  --error-700: rgb(203, 141, 0);
+  --error-800: rgb(168, 113, 0);
+  --error-900: rgb(145, 98, 0);
+  --error-950: rgb(83, 58, 0);
 
   /* ATLASSIAN PROFILE */
 
@@ -49,12 +54,6 @@
   --surface-900: rgb(61, 61, 67);
   --surface-950: rgb(31, 31, 35);
 
-  --color-lines-1: hsl(0, 77%, 70%);
-  --color-lines-2: hsl(50, 75%, 48%);
-  --color-lines-3: hsl(166, 47%, 38%);
-  --color-lines-4: hsl(198, 98%, 64%);
-  --color-lines-5: hsl(0, 0%, 100%);
-
   --design-dark-green: hsl(189, 28%, 10%);
   --design-green: hsl(166, 100%, 33%);
 }
@@ -63,8 +62,8 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--surface-40);
-  color: var(--surface-900);
+  background-color: var(--surface-900);
+  color: white;
   overflow-x: hidden;
   font-family: var(--barlow-font), 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -80,8 +79,20 @@ a {
 
 /* Each page will have the main parent that will use a margin that match the navbar height */
 main {
+  position: relative;
   margin-top: var(--navbar-height);
   min-height: calc(100dvh - var(--navbar-height));
+  z-index: 2;
+}
+
+.bg-img {
+  height: calc(100vh - var(--navbar-height));
+  top: var(--navbar-height);
+  left: -100px;
+  position: fixed;
+  overflow: hidden;
+  z-index: 1;
+  opacity: 0.15;
 }
 
 button {

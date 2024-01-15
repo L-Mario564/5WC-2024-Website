@@ -1,7 +1,7 @@
 import UserProvider from '@/contexts/UserContext';
 import Navbar from 'components/Navbar/Navbar';
-import type { Metadata } from 'next';
 import { Barlow } from 'next/font/google';
+import type { Metadata } from 'next';
 import 'styles/globals.scss';
 
 export const metadata: Metadata = {
@@ -27,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <UserProvider>
         <body className={barlowFont.variable}>
           <Navbar />
+          <img className='bg-img' alt='bg' src='/bg.png' />
           <main>{children}</main>
         </body>
       </UserProvider>
