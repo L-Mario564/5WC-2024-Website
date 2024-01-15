@@ -1,7 +1,7 @@
 'use client';
-import NavbarLines from '@/components/Navbar/Lines/NavbarLines';
 import Link from 'next/link';
 import Image from 'next/image';
+import Discord from '@/components/Discord/Discord';
 import { useRef, useState } from 'react';
 import { AuthUser } from '@/utils/types';
 import { useOnClickOutside } from '@/utils/hooks';
@@ -152,9 +152,9 @@ export default function AuthenticatedUser({ user }: Props) {
           <ul>
             {user ? (
               <li>
-                <a href="/organize-team">
+                <Link href="/organize-team">
                   Organize Team
-                </a>
+                </Link>
               </li>
             ) : undefined}
             <li>
@@ -174,37 +174,20 @@ export default function AuthenticatedUser({ user }: Props) {
           </button>
         </div>
       ) : undefined}
-      <div className={styles.container}>
-        <NavbarLines />
-        <button ref={userContainerRef} className={styles.userBtn} onClick={toggleMenu}>
-          <Image
-            src="/user-bg-deco.png"
-            alt="user bg deco"
-            width={272}
-            height={90}
-            className={styles.bgDeco}
-          />
-          <div className={styles.container}>
-            <Image
-              src={user.osu.avatar_url}
-              alt="authenticated user profile pic"
-              width={58}
-              height={58}
-              quality={80}
-              className={styles.pfp}
-            />
-            <div className={styles.rightContainer}>
-              <span className={styles.username}>{user.osu.username}</span>
-              <div className={styles.lines}>
-                <div className={styles.grayLine} />
-                <div className={styles.grayLine} />
-                <div className={styles.whiteLine} />
-                <div className={styles.whiteLine} />
-              </div>
-            </div>
-          </div>
-        </button>
-      </div>
+      <button ref={userContainerRef} className={styles.userBtn} onClick={toggleMenu}>
+        <Image
+          src={user.osu.avatar_url}
+          alt="authenticated user profile pic"
+          width={50}
+          height={50}
+          quality={80}
+          className={styles.pfp}
+        />
+        <div className={styles.osuUsername}>{user.osu.username}</div>
+        <div className={styles.discordUsername}>
+          <Discord className={styles.discordIcon} /> {user.discord.username}
+        </div>
+      </button>
     </>
   );
 }

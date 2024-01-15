@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   },
   description: 'Website of 5 Digit World Cup',
   icons: {
-    icon: '/favicon.png'
+    icon: '/logo.png'
   }
 };
 

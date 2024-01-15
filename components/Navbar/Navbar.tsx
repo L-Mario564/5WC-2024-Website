@@ -1,51 +1,93 @@
 'use client';
 
 import clsx from 'clsx';
-import LoginButton from '@/components/Navbar/LoginButton/LoginButton';
 import AuthenticatedUser from '@/components/Navbar/User/AuthenticatedUser';
-import NavbarLogo from '@/components/Navbar/Logo/NavbarLogo';
 import ResponsiveNavBar from '@/components/Navbar/Responsive/ResponsiveNavbar';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useUser } from '@/utils/hooks';
+import { useState } from 'react';
+// @ts-ignore The current file is a CommonJS module whose imports will produce 'require' calls;
+import { env } from '@/env.mjs';
 import styles from './Navbar.module.scss';
 
 export default function Navbar() {  
   const user = useUser();
-
   const pathname = usePathname();
+
+  const [promtLogin, setPromptLoginState] = useState(false);
+
   const links: {
     href: string;
     label: string;
   }[] = [{
     href: '/rules',
-    label: 'Info'
+    label: 'Rules'
   }, {
-    href: '/',
-    label: 'Teams'
+    href: env.NEXT_PUBLIC_MAIN_SHEET_URL,
+    label: 'Main Sheet'
   }, {
-    href: '/',
-    label: 'Schedule'
-  }, {
-    href: '/',
-    label: 'Mappools'
-  }, {
-    href: '/',
-    label: 'Staff'
+    href: env.NEXT_PUBLIC_DISCORD_SERVER_INVITE,
+    label: 'Discord'
   }];
 
+  function onLoginBtnClick() {
+    setPromptLoginState(true);
+  }
+
+  function onCancelLogin() {
+    setPromptLoginState(false);
+  }
+
   return (
-    <nav className={styles.navbar}>
-      <NavbarLogo />
-      <ul className={styles.routes}>
-        {links.map(({ href, label }) => (
-          <li key={label} className={clsx((pathname === href) ? styles.active : null)}>
-            <Link href={href}>{label}</Link>
-          </li>
-        ))}
-      </ul>
-      <ResponsiveNavBar links={links} pathname={pathname} />
-      {user ? <AuthenticatedUser user={user} /> : <LoginButton />}
-    </nav>
+    <>
+      {promtLogin ? (
+        <div className='backdrop'>
+          <div className='modal'>
+            <h2>Login</h2>
+            <p>To login to 5WC (and therefore, register for the tournament), you must authenticate with your osu! and Discord account.</p>
+            <div className='btn-container'>
+              <Link href='/api/auth/osu' className='btn btn-primary'>
+                Login
+              </Link>
+              <button className='btn' onClick={onCancelLogin}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : undefined}
+      <nav className={styles.navbar}>
+        <Link href='/'>
+          <Image
+            alt='logo'
+            src='/logo.png'
+            width={55}
+            height={55}
+            className={styles.logo}
+          />
+        </Link>
+        <ul className={styles.routes}>
+          {links.map(({ href, label }) => (
+            <li key={label} className={clsx((pathname === href) ? styles.active : null)}>
+              {href.startsWith('/') ? (
+                <Link href={href}>{label}</Link>
+              ) : (
+                <a href={href}>{label}</a>
+              )}
+            </li>
+          ))}
+        </ul>
+        <ResponsiveNavBar links={links} pathname={pathname} />
+        {user ? (
+          <AuthenticatedUser user={user} />
+        ) : (
+          <div className={styles.loginBtnContainer}>
+            <button className='btn btn-primary' onClick={onLoginBtnClick}>Log In</button>
+          </div>
+        )}
+      </nav>
+    </>
   );
 }
