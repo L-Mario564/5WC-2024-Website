@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useUser } from '@/utils/hooks';
 import { useState } from 'react';
+import { buildApiUrl } from '@/utils';
 // @ts-ignore The current file is a CommonJS module whose imports will produce 'require' calls;
 import { env } from '@/env.mjs';
 import styles from './Navbar.module.scss';
@@ -15,8 +16,11 @@ import styles from './Navbar.module.scss';
 export default function Navbar() {  
   const user = useUser();
   const pathname = usePathname();
-
   const [promtLogin, setPromptLoginState] = useState(false);
+  
+  const loginUrl = `${env.NEXT_PUBLIC_ORIGIN}/login`;
+  const discordOAuthUrl = buildApiUrl(`/auth/discord/prompt_login/?return_page=${encodeURI(loginUrl)}`);
+  const osuOAuthUrl = buildApiUrl(`/auth/osu/prompt_login/?return_page=${encodeURI(discordOAuthUrl)}`);
 
   const links: {
     href: string;
@@ -48,9 +52,9 @@ export default function Navbar() {
             <h2>Login</h2>
             <p>To login to 5WC (and therefore, register for the tournament), you must authenticate with your osu! and Discord account.</p>
             <div className='btn-container'>
-              <Link href='/api/auth/osu' className='btn btn-primary'>
+              <a href={osuOAuthUrl} className='btn btn-primary'>
                 Login
-              </Link>
+              </a>
               <button className='btn' onClick={onCancelLogin}>
                 Cancel
               </button>
