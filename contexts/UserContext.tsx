@@ -1,6 +1,6 @@
 'use client';
 import { useState, useMemo, createContext } from 'react';
-import { useAsyncEffect } from '@/utils/hooks';
+import { useAsyncEffect, useError } from '@/utils/hooks';
 import { buildApiUrl } from '@/utils';
 import { authUserResponseSchema } from '@/utils/schemas';
 import { z } from 'zod';
@@ -15,6 +15,7 @@ type Props = {
 
 export default function UserProvider({ children }: Props): JSX.Element {
   const [user, setUser] = useState<AuthUser | null>(null);
+  const { setError } = useError();
 
   useAsyncEffect(async (): Promise<void> => {
     let resp: Response | undefined;
@@ -29,9 +30,16 @@ export default function UserProvider({ children }: Props): JSX.Element {
     }
 
     if (!resp?.ok) {
+      const message = 'Failed to get session data';
       const data = await resp?.text();
+
+      console.error(message);
       console.info('Response: ' + data);
-      // TODO: Display error to user
+
+      setError({
+        info: message,
+        statusCode: resp?.status
+      });
       return;
     }
 
@@ -39,9 +47,15 @@ export default function UserProvider({ children }: Props): JSX.Element {
     const parsedUser = authUserResponseSchema.safeParse(JSON.parse(data));
 
     if (!parsedUser.success) {
-      // TODO: Display error to user / improve error handling
+      const message = `Server (at "${url}") sent a response different than the one expected while getting the session data`;
+      
+      console.error(message);
       console.info('Response: ' + data);
-      throw Error(`Server (at "${url}") sent a response different than the one expected`);
+
+      setError({
+        info: message
+      });
+      return;
     }
 
     const user = parsedUser.data;
@@ -59,9 +73,16 @@ export default function UserProvider({ children }: Props): JSX.Element {
     }
 
     if (!resp?.ok) {
+      const message = 'Failed to get registrant data';
       const data = await resp?.text();
+
+      console.error(message);
       console.info('Response: ' + data);
-      // TODO: Display error to user
+
+      setError({
+        info: message,
+        statusCode: resp?.status
+      });
       return;
     }
 
@@ -73,9 +94,15 @@ export default function UserProvider({ children }: Props): JSX.Element {
       .safeParse(JSON.parse(data));
 
     if (!parsedRegistrant.success) {
-      // TODO: Display error to user / improve error handling
+      const message = `Server (at "${url}") sent a response different than the one expected while getting the registrant data`;
+
+      console.error(message);
       console.info('Response: ' + data);
-      throw Error(`Server (at "${url}") sent a response different than the one expected`);
+
+      setError({
+        info: message
+      });
+      return;
     }
 
     const registrant = parsedRegistrant.data;

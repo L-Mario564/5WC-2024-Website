@@ -1,17 +1,17 @@
 'use client';
-import Toast from '@/components/Toast/Toast';
 import { buildApiUrl, env } from '@/utils';
-import { useAsyncEffect } from '@/utils/hooks';
+import { useAsyncEffect, useError } from '@/utils/hooks';
 import { useEffect, useState } from 'react';
 
 export default function LoginPage() {
   const [shouldFetch, setShouldFetchedState] = useState(false);
-  const [error, setError] = useState();
+  const { setError } = useError();
 
   // We do an additional side-effect due to the dev server running the mounting side-effect twice instead of once
   useEffect(() => {
     setShouldFetchedState(true);
   }, []);
+  
 
   useAsyncEffect(async () => {
     if (!shouldFetch) return;
@@ -27,26 +27,23 @@ export default function LoginPage() {
     }
 
     if (!resp?.ok) {
+      const message = 'Failed to log in';
       const data = await resp?.text();
+
+      console.error(message);
       console.info('Response: ' + data);
+
       setError({
-        statusCode: resp?.status,
-        statusText: resp?.statusText,
-        response: data
-      })
+        info: message,
+        statusCode: resp?.status
+      });
       return;
     }
 
-    console.info(await resp.text());
     location.href = `${env.NEXT_PUBLIC_ORIGIN}?prompt_discord=true`;
   }, [shouldFetch]);
 
   return (
-    <>
-      {error && (
-        <Toast data={error} />
-      )}
-    </>
     <div className='simple-message-container'>
       <span>Logging into 5WC, please wait a moment...</span>
     </div>

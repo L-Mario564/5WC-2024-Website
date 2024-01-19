@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Discord from '@/components/Discord/Discord';
 import { useRef, useState } from 'react';
-import { useOnClickOutside } from '@/utils/hooks';
+import { useError, useOnClickOutside } from '@/utils/hooks';
 import { buildApiUrl, getCsrfToken, env } from '@/utils';
 import type { AuthUser } from '@/utils/types';
 import styles from './AuthenticatedUser.module.scss';
@@ -18,6 +18,7 @@ export default function AuthenticatedUser({ user }: Props) {
   const [showMenu, setShowMenuState] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
   const [showChangeDiscordAccountModal, setShowChangeDiscordAccountModal] = useState(false);
+  const { setError } = useError();
 
   useOnClickOutside({
     ref: menuRef,
@@ -51,9 +52,16 @@ export default function AuthenticatedUser({ user }: Props) {
     }
 
     if (!resp?.ok) {
+      const message = 'Failed to log out';
       const data = await resp?.text();
+
+      console.error(message);
       console.info('Response: ' + data);
-      // TODO: Display error to user
+
+      setError({
+        info: message,
+        statusCode: resp?.status
+      });
       return;
     }
 
@@ -95,10 +103,17 @@ export default function AuthenticatedUser({ user }: Props) {
     }
 
     if (!resp?.ok) {
+      const message = 'Failed to delete account';
       const data = await resp?.text();
+
+      console.error(message);
       console.info('Response: ' + data);
       console.info('CSRF token: ' + csrf);
-      // TODO: Display error to user
+      
+      setError({
+        info: message,
+        statusCode: resp?.status
+      });
       return;
     }
 

@@ -1,12 +1,9 @@
 import type { z } from 'zod';
 import type { authUserResponseSchema, playerSchema, teamSchema } from './schemas';
 
-export type ErrorInfo = {
-  error?: string;
-  message: string;
-  status: number;
-  on: 'ssr' | 'api-route';
-  pathname: string;
+export type ClientError = {
+  statusCode?: number;
+  info: string;
 };
 
 export type AuthUserResponse = z.infer<typeof authUserResponseSchema>;
