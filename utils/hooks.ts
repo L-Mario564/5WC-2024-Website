@@ -1,4 +1,5 @@
 import { UserContext } from '@/contexts/UserContext';
+import { ErrorContext, SetErrorContext } from '@/contexts/ErrorContext';
 import { useContext, useEffect } from 'react';
 import type { DependencyList, MutableRefObject } from 'react';
 
@@ -33,4 +34,11 @@ export function useOnClickOutside<
 
 export function useUser() {
   return useContext(UserContext);
+}
+
+export function useError() {
+  return {
+    error: useContext(ErrorContext),
+    setError: useContext(SetErrorContext)
+  };
 }

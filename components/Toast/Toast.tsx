@@ -1,11 +1,16 @@
-"use client"
+'use client';
+import type { ClientError } from '@/utils/types';
 import styles from './Toast.module.scss'
 
-export default function Toast({data}: {data: any}) {
+type Props = {
+  error: ClientError;
+};
+
+export default function Toast({ error }: Props) {
   return (
     <div className={styles.toast}>
-      <div className={styles.code}>Error: {data?.statusCode}</div>
-      <div className={styles.text}>{data?.statusText}</div>
+      <div className={styles.code}>Error{error?.statusCode ? ' : ' + error.statusCode : ''}</div>
+      <div>{error?.info}</div>
     </div>
-  )
+  );
 }

@@ -1,8 +1,7 @@
 'use client';
-
 import Player from '@/components/Player/Player';
 import clsx from 'clsx';
-import { useAsyncEffect, useUser } from '@/utils/hooks';
+import { useAsyncEffect, useError, useUser } from '@/utils/hooks';
 import { useEffect, useState } from 'react';
 import { teamSchema } from '@/utils/schemas';
 import { buildApiUrl } from '@/utils';
@@ -21,6 +20,7 @@ export default function OrganizeTeamPage() {
   const [showHelp, setShowHelpRefresState] = useState(false);
   const [ctrl, setCtrlState] = useState(false);
   const [selectedUser, setSelectedUser] = useState<SelectedUser | undefined>();
+  const { setError } = useError();
 
   useEffect(() => {
     window.addEventListener('keydown', activateCtrlKey);
@@ -50,9 +50,16 @@ export default function OrganizeTeamPage() {
     }
 
     if (!resp?.ok) {
+      const message = 'Failed to get team data';
       const data = await resp?.text();
+
+      console.error(message);
       console.info('Response: ' + data);
-      // TODO: Display error to user
+
+      setError({
+        info: message,
+        statusCode: resp?.status
+      });
       return;
     }
 
@@ -60,9 +67,15 @@ export default function OrganizeTeamPage() {
     const parsedTeam = teamSchema.safeParse(JSON.parse(data));
 
     if (!parsedTeam.success) {
-      // TODO: Display error to user / improve error handling
+      const message = `Server (at "${url}") sent a response different than the one expected while getting the team data`;
+      
+      console.error(message);
       console.info('Response: ' + data);
-      throw Error(`Server (at "${url}") sent a response different than the one expected`);
+
+      setError({
+        info: message
+      });
+      return;
     }
 
     setTeam(parsedTeam.data);
