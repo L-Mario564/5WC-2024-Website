@@ -10,7 +10,7 @@ export default function LoginPage() {
   useEffect(() => {
     setShouldFetchedState(true);
   }, []);
-  
+
   useAsyncEffect(async () => {
     if (!shouldFetch) return;
     let resp: Response | undefined;
@@ -20,10 +20,10 @@ export default function LoginPage() {
         credentials: 'include',
         cache: 'no-cache'
       });
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
-    
+
     if (!resp?.ok) {
       const data = await resp?.text();
       console.info('Response: ' + data);
@@ -35,7 +35,9 @@ export default function LoginPage() {
     location.href = `${env.NEXT_PUBLIC_ORIGIN}?prompt_discord=true`;
   }, [shouldFetch]);
 
-  return <div className='simple-message-container'>
-    <span>Logging into 5WC, please wait a moment...</span>
-  </div>;
+  return (
+    <div className='simple-message-container'>
+      <span>Logging into 5WC, please wait a moment...</span>
+    </div>
+  );
 }

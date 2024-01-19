@@ -20,9 +20,16 @@ export default function LandingPage() {
         <div className='backdrop'>
           <div className='modal'>
             <h2>Successfully Logged In</h2>
-            <p>Your authentication was successful. Make sure you&apos;re part of the 5WC Discord server. Being part of the server is a <b>REQUIREMENT</b> to be eligible to play.</p>
+            <p>
+              Your authentication was successful. Make sure you&apos;re part of the 5WC Discord
+              server. Being part of the server is a <b>REQUIREMENT</b> to be eligible to play.
+            </p>
             <div className='btn-container'>
-              <a href={env.NEXT_PUBLIC_DISCORD_SERVER_INVITE} onClick={onCloseJoinDiscordPrompt} className='btn btn-primary'>
+              <a
+                href={env.NEXT_PUBLIC_DISCORD_SERVER_INVITE}
+                onClick={onCloseJoinDiscordPrompt}
+                className='btn btn-primary'
+              >
                 Join Discord
               </a>
               <button className='btn' onClick={onCloseJoinDiscordPrompt}>

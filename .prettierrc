@@ -3,5 +3,6 @@
   "singleQuote": true,
   "trailingComma": "none",
   "printWidth": 100,
-  "quoteProps": "consistent"
+  "quoteProps": "consistent",
+  "jsxSingleQuote": true
 }

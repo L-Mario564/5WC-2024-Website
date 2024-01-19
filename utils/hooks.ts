@@ -1,6 +1,6 @@
 import { UserContext } from '@/contexts/UserContext';
 import { useContext, useEffect } from 'react';
-import type { DependencyList, MutableRefObject, } from 'react';
+import type { DependencyList, MutableRefObject } from 'react';
 
 export function useAsyncEffect(effect: () => Promise<void>, deps?: DependencyList) {
   useEffect(() => {
@@ -11,11 +11,7 @@ export function useAsyncEffect(effect: () => Promise<void>, deps?: DependencyLis
 export function useOnClickOutside<
   T extends MutableRefObject<HTMLElement | null>,
   I extends MutableRefObject<HTMLElement | null> | undefined = undefined
->(options: {
-  ref: T;
-  ignoreRef?: I;
-  onClick: () => void | Promise<void>;
-}) {
+>(options: { ref: T; ignoreRef?: I; onClick: () => void | Promise<void> }) {
   useEffect(() => {
     function onClickOutside(event: MouseEvent) {
       if (
@@ -27,10 +23,10 @@ export function useOnClickOutside<
       }
     }
 
-    document.addEventListener("mousedown", onClickOutside);
+    document.addEventListener('mousedown', onClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", onClickOutside);
+      document.removeEventListener('mousedown', onClickOutside);
     };
   }, [options.ref]);
 }

@@ -15,7 +15,7 @@ type Props = {
 
 export default function UserProvider({ children }: Props): JSX.Element {
   const [user, setUser] = useState<AuthUser | null>(null);
-  
+
   useAsyncEffect(async (): Promise<void> => {
     let resp: Response | undefined;
     let url = buildApiUrl('/auth/session');
@@ -24,10 +24,10 @@ export default function UserProvider({ children }: Props): JSX.Element {
       resp = await fetch(url, {
         credentials: 'include'
       });
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
-    
+
     if (!resp?.ok) {
       const data = await resp?.text();
       console.info('Response: ' + data);
@@ -54,7 +54,7 @@ export default function UserProvider({ children }: Props): JSX.Element {
       resp = await fetch(url, {
         credentials: 'include'
       });
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
 
@@ -66,9 +66,11 @@ export default function UserProvider({ children }: Props): JSX.Element {
     }
 
     data = await resp.text();
-    const parsedRegistrant = z.object({
-      is_organizer: z.boolean()
-    }).safeParse(JSON.parse(data));
+    const parsedRegistrant = z
+      .object({
+        is_organizer: z.boolean()
+      })
+      .safeParse(JSON.parse(data));
 
     if (!parsedRegistrant.success) {
       // TODO: Display error to user / improve error handling
@@ -85,8 +87,6 @@ export default function UserProvider({ children }: Props): JSX.Element {
   }, []);
 
   return (
-    <UserContext.Provider value={useMemo(() => user, [user])}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={useMemo(() => user, [user])}>{children}</UserContext.Provider>
   );
 }

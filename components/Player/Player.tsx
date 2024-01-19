@@ -11,7 +11,7 @@ type Props = {
   isSelected?: boolean;
   holdingCtrl: boolean;
   onClick: () => void;
-}
+};
 
 function PlayerContent({ player, holdingCtrl }: Pick<Props, 'player' | 'holdingCtrl'>) {
   return (
@@ -25,7 +25,9 @@ function PlayerContent({ player, holdingCtrl }: Pick<Props, 'player' | 'holdingC
       />
       <div className={styles.playerInfo}>
         <span className={styles.osu}>{player.osu_username}</span>
-        <span className={styles.rank}>{formatRank(player.rank_standard ?? 0)} | BWS: {formatRank(player.rank_standard_bws ?? 0)}</span>
+        <span className={styles.rank}>
+          {formatRank(player.rank_standard ?? 0)} | BWS: {formatRank(player.rank_standard_bws ?? 0)}
+        </span>
         <span className={styles.discord}>
           <Discord className={styles.discordIcon} /> {player.discord_username}
         </span>
@@ -38,7 +40,10 @@ function PlayerContent({ player, holdingCtrl }: Pick<Props, 'player' | 'holdingC
 }
 
 export default function Player({ player, onClick, isSelected, holdingCtrl }: Props) {
-  const className = clsx(styles.player, isSelected ? styles.selectedPlayer : styles.notSelectedPlayer);
+  const className = clsx(
+    styles.player,
+    isSelected ? styles.selectedPlayer : styles.notSelectedPlayer
+  );
 
   return holdingCtrl ? (
     <a className={className} href={`https://osu.ppy.sh/users/${player.osu_user_id}`}>

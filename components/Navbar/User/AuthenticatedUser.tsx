@@ -46,11 +46,10 @@ export default function AuthenticatedUser({ user }: Props) {
       resp = await fetch(url, {
         credentials: 'include'
       });
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
-    
-    
+
     if (!resp?.ok) {
       const data = await resp?.text();
       console.info('Response: ' + data);
@@ -91,7 +90,7 @@ export default function AuthenticatedUser({ user }: Props) {
           'X-CSRFToken': csrf
         }
       });
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
 
@@ -117,7 +116,10 @@ export default function AuthenticatedUser({ user }: Props) {
         <div className='backdrop'>
           <div className='modal'>
             <h2>Change Discord Account</h2>
-            <p>If you need to change the Discord account linked to your 5WC account (and therefore, registration), then you need to log in again.</p>
+            <p>
+              If you need to change the Discord account linked to your 5WC account (and therefore,
+              registration), then you need to log in again.
+            </p>
             <div className='btn-container'>
               <button className='btn btn-primary' onClick={changeDiscordAccount}>
                 Log In
@@ -133,7 +135,11 @@ export default function AuthenticatedUser({ user }: Props) {
         <div className='backdrop'>
           <div className='modal'>
             <h2>Delete Account</h2>
-            <p>Are you sure you want to delete your 5WC account? This also means that you&apos;re registration is removed from the tournament, regardless if you&apos;re part of a team or not.</p>
+            <p>
+              Are you sure you want to delete your 5WC account? This also means that you&apos;re
+              registration is removed from the tournament, regardless if you&apos;re part of a team
+              or not.
+            </p>
             <div className='btn-container'>
               <button className='btn btn-error' onClick={deleteAccount}>
                 Delete
@@ -150,20 +156,14 @@ export default function AuthenticatedUser({ user }: Props) {
           <ul>
             {user ? (
               <li>
-                <Link href="/organize-team">
-                  Organize Team
-                </Link>
+                <Link href='/organize-team'>Organize Team</Link>
               </li>
             ) : undefined}
             <li>
-              <button onClick={promptDiscordAccountChange}>
-                Change Discord Account
-              </button>
+              <button onClick={promptDiscordAccountChange}>Change Discord Account</button>
             </li>
             <li>
-              <button onClick={promptAccountDeletion}>
-                Delete Account
-              </button>
+              <button onClick={promptAccountDeletion}>Delete Account</button>
             </li>
           </ul>
           <div className={styles.divider} />
@@ -175,7 +175,7 @@ export default function AuthenticatedUser({ user }: Props) {
       <button ref={userContainerRef} className={styles.userBtn} onClick={toggleMenu}>
         <Image
           src={user.osu.avatar_url}
-          alt="authenticated user profile pic"
+          alt='authenticated user profile pic'
           width={50}
           height={50}
           quality={80}

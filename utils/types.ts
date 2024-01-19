@@ -1,4 +1,4 @@
-import type { z } from 'zod'
+import type { z } from 'zod';
 import type { authUserResponseSchema, playerSchema, teamSchema } from './schemas';
 
 export type ErrorInfo = {

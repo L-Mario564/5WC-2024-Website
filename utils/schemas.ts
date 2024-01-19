@@ -1,32 +1,44 @@
 import { z } from 'zod';
 import { env } from '@/utils';
 
-const paginationSchema = z.string().url().nullable().transform((url) => {
-  if (!url) return url;
-  const urlObj = new URL(url);
-  return url ? `${env.NEXT_PUBLIC_ORIGIN}${urlObj.pathname}${urlObj.searchParams.size === 0 ? '' : '?' + urlObj.searchParams.toString()}` : url;
-});
+const paginationSchema = z
+  .string()
+  .url()
+  .nullable()
+  .transform((url) => {
+    if (!url) return url;
+    const urlObj = new URL(url);
+    return url
+      ? `${env.NEXT_PUBLIC_ORIGIN}${urlObj.pathname}${
+          urlObj.searchParams.size === 0 ? '' : '?' + urlObj.searchParams.toString()
+        }`
+      : url;
+  });
 
-// Note: This is not the full response object, only the "most important" keys are present. If any other key is necessary from the full response, add it here 
+// Note: This is not the full response object, only the "most important" keys are present. If any other key is necessary from the full response, add it here
 export const authUserResponseSchema = z.object({
   logged_in_user: z.string(),
   logged_in_user_id: z.number().nullable(),
-  discord: z.object({
-    id: z.string(),
-    username: z.string(),
-    avatar: z.string().nullable(),
-    global_name: z.string()
-  }).nullable(),
-  osu: z.object({
-    avatar_url: z.string(),
-    id: z.number(),
-    username: z.string(),
-    is_restricted: z.boolean(),
-    country: z.object({
-      code: z.string(),
-      name: z.string()
+  discord: z
+    .object({
+      id: z.string(),
+      username: z.string(),
+      avatar: z.string().nullable(),
+      global_name: z.string()
     })
-  }).nullable()
+    .nullable(),
+  osu: z
+    .object({
+      avatar_url: z.string(),
+      id: z.number(),
+      username: z.string(),
+      is_restricted: z.boolean(),
+      country: z.object({
+        code: z.string(),
+        name: z.string()
+      })
+    })
+    .nullable()
 });
 
 export const playerSchema = z.object({

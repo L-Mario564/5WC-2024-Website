@@ -1,7 +1,7 @@
 .fullLogoContainer {
   --logo-height: 320px;
-  --color-1: #FE2456;
-  --color-2: #1D1D1D;
+  --color-1: #fe2456;
+  --color-2: #1d1d1d;
 
   position: relative;
   font-family: 'Coluna Rounded';
@@ -32,7 +32,9 @@
   grid-template-rows: auto auto;
 }
 
-.five, .digit, .worldCup {
+.five,
+.digit,
+.worldCup {
   position: relative;
   display: inline-block;
   line-height: 100%;

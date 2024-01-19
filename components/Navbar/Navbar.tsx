@@ -11,28 +11,36 @@ import { useState } from 'react';
 import { buildApiUrl, env } from '@/utils';
 import styles from './Navbar.module.scss';
 
-export default function Navbar() {  
+export default function Navbar() {
   const user = useUser();
   const pathname = usePathname();
   const [promtLogin, setPromptLoginState] = useState(false);
 
   const loginUrl = `${env.NEXT_PUBLIC_ORIGIN}/login`;
-  const discordOAuthUrl = buildApiUrl(`/auth/discord/prompt_login/?return_page=${encodeURI(loginUrl)}`);
-  const osuOAuthUrl = buildApiUrl(`/auth/osu/prompt_login/?return_page=${encodeURI(discordOAuthUrl)}`);
+  const discordOAuthUrl = buildApiUrl(
+    `/auth/discord/prompt_login/?return_page=${encodeURI(loginUrl)}`
+  );
+  const osuOAuthUrl = buildApiUrl(
+    `/auth/osu/prompt_login/?return_page=${encodeURI(discordOAuthUrl)}`
+  );
 
   const links: {
     href: string;
     label: string;
-  }[] = [{
-    href: '/rules',
-    label: 'Rules'
-  }, {
-    href: env.NEXT_PUBLIC_MAIN_SHEET_URL,
-    label: 'Main Sheet'
-  }, {
-    href: env.NEXT_PUBLIC_DISCORD_SERVER_INVITE,
-    label: 'Discord'
-  }];
+  }[] = [
+    {
+      href: '/rules',
+      label: 'Rules'
+    },
+    {
+      href: env.NEXT_PUBLIC_MAIN_SHEET_URL,
+      label: 'Main Sheet'
+    },
+    {
+      href: env.NEXT_PUBLIC_DISCORD_SERVER_INVITE,
+      label: 'Discord'
+    }
+  ];
 
   function onLoginBtnClick() {
     setPromptLoginState(true);
@@ -48,7 +56,10 @@ export default function Navbar() {
         <div className='backdrop'>
           <div className='modal'>
             <h2>Login</h2>
-            <p>To login to 5WC (and therefore, register for the tournament), you must authenticate with your osu! and Discord account.</p>
+            <p>
+              To login to 5WC (and therefore, register for the tournament), you must authenticate
+              with your osu! and Discord account.
+            </p>
             <div className='btn-container'>
               <a href={osuOAuthUrl} className='btn btn-primary'>
                 Login
@@ -62,37 +73,27 @@ export default function Navbar() {
       ) : undefined}
       <nav className={styles.navbar}>
         <Link href='/'>
-          <Image
-            alt='logo'
-            src='/logo.png'
-            width={55}
-            height={55}
-            className={styles.logo}
-          />
+          <Image alt='logo' src='/logo.png' width={55} height={55} className={styles.logo} />
         </Link>
         <ul className={styles.routes}>
           {links.map(({ href, label }) => (
-            <li key={label} className={clsx((pathname === href) ? styles.active : null)}>
-              {href.startsWith('/') ? (
-                <Link href={href}>{label}</Link>
-              ) : (
-                <a href={href}>{label}</a>
-              )}
+            <li key={label} className={clsx(pathname === href ? styles.active : null)}>
+              {href.startsWith('/') ? <Link href={href}>{label}</Link> : <a href={href}>{label}</a>}
             </li>
           ))}
         </ul>
         <ResponsiveNavBar links={links} pathname={pathname} />
-        {env.NEXT_PUBLIC_REGISTRATION_START_DATE.getTime() <= new Date().getTime()
-          ? user
-            ? (
-              <AuthenticatedUser user={user} />
-            )
-            : (
+        {env.NEXT_PUBLIC_REGISTRATION_START_DATE.getTime() <= new Date().getTime() ? (
+          user ? (
+            <AuthenticatedUser user={user} />
+          ) : (
             <div className={styles.loginBtnContainer}>
-              <button className='btn btn-primary' onClick={onLoginBtnClick}>Log In</button>
+              <button className='btn btn-primary' onClick={onLoginBtnClick}>
+                Log In
+              </button>
             </div>
-            )
-          : undefined}
+          )
+        ) : undefined}
       </nav>
     </>
   );

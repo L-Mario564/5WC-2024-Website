@@ -11,7 +11,7 @@ import styles from './organize-team.module.scss';
 
 type SelectedUser = {
   playerId: number;
-  as: 'roster' | 'backup' | 'candidate'
+  as: 'roster' | 'backup' | 'candidate';
 };
 
 export default function OrganizeTeamPage() {
@@ -37,7 +37,7 @@ export default function OrganizeTeamPage() {
 
     const params = new URLSearchParams();
     params.set('limit', '50');
-    
+
     let resp: Response | undefined;
     let url = buildApiUrl(`/teams/${user.osu.country.code}/members?${params.toString()}`);
 
@@ -45,10 +45,10 @@ export default function OrganizeTeamPage() {
       resp = await fetch(url, {
         credentials: 'include'
       });
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
-    
+
     if (!resp?.ok) {
       const data = await resp?.text();
       console.info('Response: ' + data);
@@ -102,7 +102,7 @@ export default function OrganizeTeamPage() {
   //   } catch(err) {
   //     console.error(err);
   //   }
-    
+
   //   if (!resp?.ok) {
   //     const data = await resp?.text();
   //     console.info('Response: ' + data);
@@ -111,108 +111,118 @@ export default function OrganizeTeamPage() {
   //   }
   // }
 
-  return (
-    !user ? (
-      <div className='simple-message-container'>
-        <span>Getting user information...</span>
-      </div>
-    ) : !user.is_organizer ? (
-      <div className='simple-message-container'>
-        <span>You do not have the necessary permissions to organize a team</span>
-      </div>
-    ) : !team ? (
-      <div className='simple-message-container'>
-        <span>Getting team information...</span>
-      </div>
-    ) : (
-      <>
-        <div className={styles.pageContainer}>
-          <div className={styles.teamContainer}>
-            <div className={styles.roster}>
-              <div className={styles.header}>Roster</div>
-              <div className={styles.scroll}>
-                <div className={styles.playersContainer}>
-                  {team.roster.map((player) => (
-                    <Player
-                      key={`roster-${player.user_id}`}
-                      player={player}
-                      isSelected={player.user_id === selectedUser?.playerId}
-                      onClick={() => onUserBtnClick(player.user_id, 'roster')}
-                      holdingCtrl={ctrl}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className={styles.backup}>
-              <div className={styles.header}>Backup Players</div>
-              <div className={styles.scroll}>
-                <div className={styles.playersContainer}>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className={styles.candidates}>
-            <div className={styles.header}>Candidates</div>
+  return !user ? (
+    <div className='simple-message-container'>
+      <span>Getting user information...</span>
+    </div>
+  ) : !user.is_organizer ? (
+    <div className='simple-message-container'>
+      <span>You do not have the necessary permissions to organize a team</span>
+    </div>
+  ) : !team ? (
+    <div className='simple-message-container'>
+      <span>Getting team information...</span>
+    </div>
+  ) : (
+    <>
+      <div className={styles.pageContainer}>
+        <div className={styles.teamContainer}>
+          <div className={styles.roster}>
+            <div className={styles.header}>Roster</div>
             <div className={styles.scroll}>
-                <div className={styles.playersContainer}>
-                  {team.candidates.results.map((player) => (
-                    <Player
-                      key={`candidates-${player.user_id}`}
-                      player={player}
-                      isSelected={player.user_id === selectedUser?.playerId}
-                      onClick={() => onUserBtnClick(player.user_id, 'candidate')}
-                      holdingCtrl={ctrl}
-                    />
-                  ))}
-                </div>
-              </div>
-          </div>
-        </div>
-        <div className={styles.helpBtnContainer}>
-          <button onClick={toggleHelp} className={styles.helpBtn}>
-            ?
-          </button>
-        </div>
-        {showHelp ? (
-          <div className='backdrop'>
-            <div className='modal'>
-              <h2>Help</h2>
-              <p>In this dashboard, you can organize your country&apos;s team. Players within &quot;Roster&quot; are part of the team while &quot;Backup Players&quot; are players that can be used to replace players within the roster in case they get screened. &quot;Candidates&quot; are registered players that you can choose to do nothing with or move them to the other previously mentioned categories.</p>
-              <span><b>Things to consider</b></span>
-              <ul>
-                <li>- The roster must consist of <b>at least 5</b> players, and <b>at most 8</b>.</li>
-                <li>- You can have no backup players if you so chooose to, but you <b>can&apos;t have more than 3</b>.</li>
-                <li>- Click on a player to select or de-select them. If you want to visit a user&apos;s profile, click on them while holding <b>Ctrl</b>.</li>
-              </ul>
-              <div className='btn-container'>
-                <button className='btn' onClick={toggleHelp}>
-                  Got It
-                </button>
+              <div className={styles.playersContainer}>
+                {team.roster.map((player) => (
+                  <Player
+                    key={`roster-${player.user_id}`}
+                    player={player}
+                    isSelected={player.user_id === selectedUser?.playerId}
+                    onClick={() => onUserBtnClick(player.user_id, 'roster')}
+                    holdingCtrl={ctrl}
+                  />
+                ))}
               </div>
             </div>
           </div>
-        ) : undefined}
-        {selectedUser && (
-          <div className={styles.modalContainer}>
-            <div className={clsx('modal', styles.modal)}>
-              {selectedUser.as === 'candidate' ? (
-                <>
-                  <button className='btn btn-primary'>Move To Roster</button>
-                  <button className='btn'>Make Backup Player</button>
-                </>
-              ) : selectedUser.as === 'backup' ? (
-                <>
-                </>
-              ) : (
-                <>
-                </>
-              )}
+          <div className={styles.backup}>
+            <div className={styles.header}>Backup Players</div>
+            <div className={styles.scroll}>
+              <div className={styles.playersContainer}></div>
             </div>
           </div>
-        )}
-      </>
-    )
+        </div>
+        <div className={styles.candidates}>
+          <div className={styles.header}>Candidates</div>
+          <div className={styles.scroll}>
+            <div className={styles.playersContainer}>
+              {team.candidates.results.map((player) => (
+                <Player
+                  key={`candidates-${player.user_id}`}
+                  player={player}
+                  isSelected={player.user_id === selectedUser?.playerId}
+                  onClick={() => onUserBtnClick(player.user_id, 'candidate')}
+                  holdingCtrl={ctrl}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={styles.helpBtnContainer}>
+        <button onClick={toggleHelp} className={styles.helpBtn}>
+          ?
+        </button>
+      </div>
+      {showHelp ? (
+        <div className='backdrop'>
+          <div className='modal'>
+            <h2>Help</h2>
+            <p>
+              In this dashboard, you can organize your country&apos;s team. Players within
+              &quot;Roster&quot; are part of the team while &quot;Backup Players&quot; are players
+              that can be used to replace players within the roster in case they get screened.
+              &quot;Candidates&quot; are registered players that you can choose to do nothing with
+              or move them to the other previously mentioned categories.
+            </p>
+            <span>
+              <b>Things to consider</b>
+            </span>
+            <ul>
+              <li>
+                - The roster must consist of <b>at least 5</b> players, and <b>at most 8</b>.
+              </li>
+              <li>
+                - You can have no backup players if you so chooose to, but you{' '}
+                <b>can&apos;t have more than 3</b>.
+              </li>
+              <li>
+                - Click on a player to select or de-select them. If you want to visit a user&apos;s
+                profile, click on them while holding <b>Ctrl</b>.
+              </li>
+            </ul>
+            <div className='btn-container'>
+              <button className='btn' onClick={toggleHelp}>
+                Got It
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : undefined}
+      {selectedUser && (
+        <div className={styles.modalContainer}>
+          <div className={clsx('modal', styles.modal)}>
+            {selectedUser.as === 'candidate' ? (
+              <>
+                <button className='btn btn-primary'>Move To Roster</button>
+                <button className='btn'>Make Backup Player</button>
+              </>
+            ) : selectedUser.as === 'backup' ? (
+              <></>
+            ) : (
+              <></>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 }

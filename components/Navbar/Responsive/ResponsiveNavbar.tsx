@@ -23,7 +23,7 @@ export default function ResponsiveNavBar({ links, pathname }: Props) {
     ignoreRef: toggleMenuBtn,
     onClick: closeMenu
   });
-  
+
   function toggleMenu() {
     setShowMenuState((showMenu) => !showMenu);
   }
@@ -39,13 +39,17 @@ export default function ResponsiveNavBar({ links, pathname }: Props) {
           <Menu size={42} className={styles.btnIcon} />
         </button>
       </div>
-      {showMenu ? <ul ref={responsiveLinksRef} className={styles.menu}>
-        {links.map(({ href, label }) => (
-          <li key={label} className={clsx((pathname === href) ? styles.active : null)}>
-            <Link href={href} onClick={closeMenu}>{label}</Link>
-          </li>
-        ))}
-      </ul> : undefined}
+      {showMenu ? (
+        <ul ref={responsiveLinksRef} className={styles.menu}>
+          {links.map(({ href, label }) => (
+            <li key={label} className={clsx(pathname === href ? styles.active : null)}>
+              <Link href={href} onClick={closeMenu}>
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : undefined}
     </>
   );
 }

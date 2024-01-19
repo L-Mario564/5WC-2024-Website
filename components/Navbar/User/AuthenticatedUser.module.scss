@@ -76,7 +76,7 @@
 }
 
 .menu {
-  position:  absolute;
+  position: absolute;
   top: calc(var(--navbar-height) + 5px);
   right: 5px;
   width: 262px;
@@ -113,7 +113,8 @@
       background-color: rgba(255, 255, 255, 0.1);
     }
 
-    button, a {
+    button,
+    a {
       display: block;
       padding: 8px;
       width: 100%;
@@ -137,7 +138,7 @@
     .osuUsername {
       display: none;
     }
-  
+
     .discordUsername {
       display: none;
     }
