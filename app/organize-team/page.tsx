@@ -41,8 +41,8 @@ export default function OrganizeTeamPage() {
       return;
     }
 
-    let data = await resp.json();
-    const parsedTeam = teamSchema.safeParse(data);
+    let data = await resp.text();
+    const parsedTeam = teamSchema.safeParse(JSON.parse(data));
 
     if (!parsedTeam.success) {
       // TODO: Display error to user / improve error handling

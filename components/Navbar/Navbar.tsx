@@ -80,13 +80,17 @@ export default function Navbar() {
           ))}
         </ul>
         <ResponsiveNavBar links={links} pathname={pathname} />
-        {user ? (
-          <AuthenticatedUser user={user} />
-        ) : (
-          <div className={styles.loginBtnContainer}>
-            <button className='btn btn-primary' onClick={onLoginBtnClick}>Log In</button>
-          </div>
-        )}
+        {env.NEXT_PUBLIC_REGISTRATION_START_DATE.getTime() <= new Date().getTime()
+          ? user
+            ? (
+              <AuthenticatedUser user={user} />
+            )
+            : (
+            <div className={styles.loginBtnContainer}>
+              <button className='btn btn-primary' onClick={onLoginBtnClick}>Log In</button>
+            </div>
+            )
+          : undefined}
       </nav>
     </>
   );

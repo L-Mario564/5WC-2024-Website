@@ -28,7 +28,6 @@ export default function UserProvider({ children }: Props): JSX.Element {
       console.error(err);
     }
     
-    
     if (!resp?.ok) {
       const data = await resp?.text();
       console.info('Response: ' + data);
@@ -36,8 +35,8 @@ export default function UserProvider({ children }: Props): JSX.Element {
       return;
     }
 
-    let data = await resp.json();
-    const parsedUser = authUserResponseSchema.safeParse(data);
+    let data = await resp.text();
+    const parsedUser = authUserResponseSchema.safeParse(JSON.parse(data));
 
     if (!parsedUser.success) {
       // TODO: Display error to user / improve error handling
@@ -66,10 +65,10 @@ export default function UserProvider({ children }: Props): JSX.Element {
       return;
     }
 
-    data = await resp.json();
+    data = await resp.text();
     const parsedRegistrant = z.object({
       is_organizer: z.boolean()
-    }).safeParse(data);
+    }).safeParse(JSON.parse(data));
 
     if (!parsedRegistrant.success) {
       // TODO: Display error to user / improve error handling

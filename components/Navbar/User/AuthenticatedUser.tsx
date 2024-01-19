@@ -100,7 +100,7 @@ export default function AuthenticatedUser({ user }: Props) {
     if (!resp?.ok) {
       const data = await resp?.text();
       console.info('Response: ' + data);
-      console.info('CSRF token: ' + csrf)
+      console.info('CSRF token: ' + csrf);
       // TODO: Display error to user
       return;
     }
