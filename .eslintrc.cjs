@@ -38,7 +38,9 @@ const config = {
     '@typescript-eslint/no-inferrable-types': 'off',
     'quote-props': ['warn', 'consistent'],
     'unused-export-let': 'off',
-    '@typescript-eslint/no-floating-promises': 'off'
+    '@typescript-eslint/no-floating-promises': 'off',
+    '@next/next/no-img-element': 'off',
+    '@typescript-eslint/no-misused-promises': 'off'
   }
 };
 

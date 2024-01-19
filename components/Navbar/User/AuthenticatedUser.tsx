@@ -1,13 +1,11 @@
 'use client';
-import NavbarLines from '@/components/Navbar/Lines/NavbarLines';
 import Link from 'next/link';
 import Image from 'next/image';
+import Discord from '@/components/Discord/Discord';
 import { useRef, useState } from 'react';
-import { AuthUser } from '@/utils/types';
 import { useOnClickOutside } from '@/utils/hooks';
-import { buildApiUrl, getCsrfToken } from '@/utils';
-// @ts-ignore The current file is a CommonJS module whose imports will produce 'require' calls;
-import { env } from '@/env.mjs';
+import { buildApiUrl, getCsrfToken, env } from '@/utils';
+import type { AuthUser } from '@/utils/types';
 import styles from './AuthenticatedUser.module.scss';
 
 type Props = {
@@ -48,11 +46,10 @@ export default function AuthenticatedUser({ user }: Props) {
       resp = await fetch(url, {
         credentials: 'include'
       });
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
-    
-    
+
     if (!resp?.ok) {
       const data = await resp?.text();
       console.info('Response: ' + data);
@@ -64,12 +61,12 @@ export default function AuthenticatedUser({ user }: Props) {
     location.reload();
   }
 
-  async function promptAccountDeletion() {
+  function promptAccountDeletion() {
     closeMenu();
     setShowDeleteAccountModal(true);
   }
 
-  async function promptDiscordAccountChange() {
+  function promptDiscordAccountChange() {
     closeMenu();
     setShowChangeDiscordAccountModal(true);
   }
@@ -93,14 +90,14 @@ export default function AuthenticatedUser({ user }: Props) {
           'X-CSRFToken': csrf
         }
       });
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
 
     if (!resp?.ok) {
       const data = await resp?.text();
       console.info('Response: ' + data);
-      console.info('CSRF token: ' + csrf)
+      console.info('CSRF token: ' + csrf);
       // TODO: Display error to user
       return;
     }
@@ -119,7 +116,10 @@ export default function AuthenticatedUser({ user }: Props) {
         <div className='backdrop'>
           <div className='modal'>
             <h2>Change Discord Account</h2>
-            <p>If you need to change the Discord account linked to your 5WC account (and therefore, registration), then you need to log in again.</p>
+            <p>
+              If you need to change the Discord account linked to your 5WC account (and therefore,
+              registration), then you need to log in again.
+            </p>
             <div className='btn-container'>
               <button className='btn btn-primary' onClick={changeDiscordAccount}>
                 Log In
@@ -135,7 +135,11 @@ export default function AuthenticatedUser({ user }: Props) {
         <div className='backdrop'>
           <div className='modal'>
             <h2>Delete Account</h2>
-            <p>Are you sure you want to delete your 5WC account? This also means that you're registration is removed from the tournament, regardless if you're part of a team or not.</p>
+            <p>
+              Are you sure you want to delete your 5WC account? This also means that you&apos;re
+              registration is removed from the tournament, regardless if you&apos;re part of a team
+              or not.
+            </p>
             <div className='btn-container'>
               <button className='btn btn-error' onClick={deleteAccount}>
                 Delete
@@ -150,15 +154,16 @@ export default function AuthenticatedUser({ user }: Props) {
       {showMenu ? (
         <div ref={menuRef} className={styles.menu}>
           <ul>
-          <li>
-              <button onClick={promptDiscordAccountChange}>
-                Change Discord Account
-              </button>
+            {user ? (
+              <li>
+                <Link href='/organize-team'>Organize Team</Link>
+              </li>
+            ) : undefined}
+            <li>
+              <button onClick={promptDiscordAccountChange}>Change Discord Account</button>
             </li>
             <li>
-              <button onClick={promptAccountDeletion}>
-                Delete Account
-              </button>
+              <button onClick={promptAccountDeletion}>Delete Account</button>
             </li>
           </ul>
           <div className={styles.divider} />
@@ -167,37 +172,20 @@ export default function AuthenticatedUser({ user }: Props) {
           </button>
         </div>
       ) : undefined}
-      <div className={styles.container}>
-        <NavbarLines />
-        <button ref={userContainerRef} className={styles.userBtn} onClick={toggleMenu}>
-          <Image
-            src="/user-bg-deco.png"
-            alt="user bg deco"
-            width={272}
-            height={90}
-            className={styles.bgDeco}
-          />
-          <div className={styles.container}>
-            <Image
-              src={user.osu.avatar_url}
-              alt="authenticated user profile pic"
-              width={58}
-              height={58}
-              quality={80}
-              className={styles.pfp}
-            />
-            <div className={styles.rightContainer}>
-              <span className={styles.username}>{user.osu.username}</span>
-              <div className={styles.lines}>
-                <div className={styles.grayLine} />
-                <div className={styles.grayLine} />
-                <div className={styles.whiteLine} />
-                <div className={styles.whiteLine} />
-              </div>
-            </div>
-          </div>
-        </button>
-      </div>
+      <button ref={userContainerRef} className={styles.userBtn} onClick={toggleMenu}>
+        <Image
+          src={user.osu.avatar_url}
+          alt='authenticated user profile pic'
+          width={50}
+          height={50}
+          quality={80}
+          className={styles.pfp}
+        />
+        <div className={styles.osuUsername}>{user.osu.username}</div>
+        <div className={styles.discordUsername}>
+          <Discord className={styles.discordIcon} /> {user.discord.username}
+        </div>
+      </button>
     </>
   );
 }
