@@ -1,7 +1,5 @@
 'use client';
-// @ts-ignore The current file is a CommonJS module whose imports will produce 'require' calls;
-import { env } from '@/env.mjs';
-import { buildApiUrl } from '@/utils';
+import { buildApiUrl, env } from '@/utils';
 import { useAsyncEffect } from '@/utils/hooks';
 import { useEffect, useState } from 'react';
 

@@ -1,6 +1,5 @@
 import { z } from 'zod';
-// @ts-ignore The current file is a CommonJS module whose imports will produce 'require' calls;
-import { env } from '@/env.mjs';
+import { env } from '@/utils';
 
 const paginationSchema = z.string().url().nullable().transform((url) => {
   if (!url) return url;

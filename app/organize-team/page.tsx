@@ -87,29 +87,29 @@ export default function OrganizeTeamPage() {
     setCtrlState(false);
   }
 
-  async function moveToRoster() {
-    let resp: Response | undefined;
-    const url = buildApiUrl(`/teams/${user?.osu.country.code}/members`);
-    const body = {
-      players: []
-    };
+  // async function moveToRoster() {
+  //   let resp: Response | undefined;
+  //   const url = buildApiUrl(`/teams/${user?.osu.country.code}/members`);
+  //   const body = {
+  //     players: []
+  //   };
 
-    try {
-      resp = await fetch(url, {
-        method: 'PATCH',
-        credentials: 'include'
-      });
-    } catch(err) {
-      console.error(err);
-    }
+  //   try {
+  //     resp = await fetch(url, {
+  //       method: 'PATCH',
+  //       credentials: 'include'
+  //     });
+  //   } catch(err) {
+  //     console.error(err);
+  //   }
     
-    if (!resp?.ok) {
-      const data = await resp?.text();
-      console.info('Response: ' + data);
-      // TODO: Display error to user
-      return;
-    }
-  }
+  //   if (!resp?.ok) {
+  //     const data = await resp?.text();
+  //     console.info('Response: ' + data);
+  //     // TODO: Display error to user
+  //     return;
+  //   }
+  // }
 
   return (
     !user ? (
@@ -179,12 +179,12 @@ export default function OrganizeTeamPage() {
           <div className='backdrop'>
             <div className='modal'>
               <h2>Help</h2>
-              <p>In this dashboard, you can organize your country's team. Players within "Roster" are part of the team while "Backup Players" are players that can be used to replace players within the roster in case they get screened. "Candidates" are registered players that you can choose to do nothing with or move them to the other previously mentioned categories.</p>
+              <p>In this dashboard, you can organize your country&apos;s team. Players within &quot;Roster&quot; are part of the team while &quot;Backup Players&quot; are players that can be used to replace players within the roster in case they get screened. &quot;Candidates&quot; are registered players that you can choose to do nothing with or move them to the other previously mentioned categories.</p>
               <span><b>Things to consider</b></span>
               <ul>
                 <li>- The roster must consist of <b>at least 5</b> players, and <b>at most 8</b>.</li>
-                <li>- You can have no backup players if you so chooose to, but you <b>can't have more than 3</b>.</li>
-                <li>- Click on a player to select or de-select them. If you want to visit a user's profile, click on them while holding <b>Ctrl</b>.</li>
+                <li>- You can have no backup players if you so chooose to, but you <b>can&apos;t have more than 3</b>.</li>
+                <li>- Click on a player to select or de-select them. If you want to visit a user&apos;s profile, click on them while holding <b>Ctrl</b>.</li>
               </ul>
               <div className='btn-container'>
                 <button className='btn' onClick={toggleHelp}>

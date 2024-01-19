@@ -8,16 +8,14 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useUser } from '@/utils/hooks';
 import { useState } from 'react';
-import { buildApiUrl } from '@/utils';
-// @ts-ignore The current file is a CommonJS module whose imports will produce 'require' calls;
-import { env } from '@/env.mjs';
+import { buildApiUrl, env } from '@/utils';
 import styles from './Navbar.module.scss';
 
 export default function Navbar() {  
   const user = useUser();
   const pathname = usePathname();
   const [promtLogin, setPromptLoginState] = useState(false);
-  
+
   const loginUrl = `${env.NEXT_PUBLIC_ORIGIN}/login`;
   const discordOAuthUrl = buildApiUrl(`/auth/discord/prompt_login/?return_page=${encodeURI(loginUrl)}`);
   const osuOAuthUrl = buildApiUrl(`/auth/osu/prompt_login/?return_page=${encodeURI(discordOAuthUrl)}`);

@@ -25,7 +25,7 @@ function PlayerContent({ player, holdingCtrl }: Pick<Props, 'player' | 'holdingC
       />
       <div className={styles.playerInfo}>
         <span className={styles.osu}>{player.osu_username}</span>
-        <span className={styles.rank}>{formatRank(player.rank_standard || 0)} | BWS: {formatRank(player.rank_standard_bws || 0)}</span>
+        <span className={styles.rank}>{formatRank(player.rank_standard ?? 0)} | BWS: {formatRank(player.rank_standard_bws ?? 0)}</span>
         <span className={styles.discord}>
           <Discord className={styles.discordIcon} /> {player.discord_username}
         </span>

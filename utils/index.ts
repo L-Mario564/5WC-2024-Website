@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore The current file is a CommonJS module whose imports will produce 'require' calls;
 import { env } from '@/env.mjs';
 
@@ -29,3 +30,5 @@ export function getCsrfToken() {
 export function formatRank(n: number) {
   return `#${Math.round(n).toLocaleString('en-US')}`
 }
+
+export { env };

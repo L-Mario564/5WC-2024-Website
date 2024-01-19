@@ -3,11 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Discord from '@/components/Discord/Discord';
 import { useRef, useState } from 'react';
-import { AuthUser } from '@/utils/types';
 import { useOnClickOutside } from '@/utils/hooks';
-import { buildApiUrl, getCsrfToken } from '@/utils';
-// @ts-ignore The current file is a CommonJS module whose imports will produce 'require' calls;
-import { env } from '@/env.mjs';
+import { buildApiUrl, getCsrfToken, env } from '@/utils';
+import type { AuthUser } from '@/utils/types';
 import styles from './AuthenticatedUser.module.scss';
 
 type Props = {
@@ -64,12 +62,12 @@ export default function AuthenticatedUser({ user }: Props) {
     location.reload();
   }
 
-  async function promptAccountDeletion() {
+  function promptAccountDeletion() {
     closeMenu();
     setShowDeleteAccountModal(true);
   }
 
-  async function promptDiscordAccountChange() {
+  function promptDiscordAccountChange() {
     closeMenu();
     setShowChangeDiscordAccountModal(true);
   }
@@ -135,7 +133,7 @@ export default function AuthenticatedUser({ user }: Props) {
         <div className='backdrop'>
           <div className='modal'>
             <h2>Delete Account</h2>
-            <p>Are you sure you want to delete your 5WC account? This also means that you're registration is removed from the tournament, regardless if you're part of a team or not.</p>
+            <p>Are you sure you want to delete your 5WC account? This also means that you&apos;re registration is removed from the tournament, regardless if you&apos;re part of a team or not.</p>
             <div className='btn-container'>
               <button className='btn btn-error' onClick={deleteAccount}>
                 Delete
