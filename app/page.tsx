@@ -2,8 +2,8 @@
 import Logo from '@/components/Logo/Logo';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import styles from './landing.module.scss';
 import { env } from '@/utils';
+import styles from './landing.module.scss';
 
 export default function LandingPage() {
   const searchParams = useSearchParams();

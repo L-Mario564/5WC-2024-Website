@@ -1,0 +1,56 @@
+.toast {
+    --width: 300px;
+    display: flex;
+    flex-flow: column;
+    position: absolute;
+    bottom: 0;
+    /* right: 0; */
+    width: var(--width);
+    height: auto;
+    background-color: var(--toast-error);
+    z-index: 2;
+    opacity: 0;
+    -webkit-animation: fadein 0.5s, stay 5s 0.5s, fadeout 0.5s 5s;
+    animation: fadein 0.5s, stay 5s 0.5s, fadeout 0.5s 5s;
+}
+
+.toast div {
+  width: 100%;
+  height: auto;
+  padding: 6px 10px;
+}
+
+.code {
+  background-color: hsla(0, 0%, 0%, 0.14);
+}
+
+
+@-webkit-keyframes fadein {
+    from {transform: translateY(0); opacity: 0;}
+    to {transform: translateY(-20px); opacity: 1;}
+  }
+  
+  @keyframes fadein {
+    from {transform: translateY(0); opacity: 0;}
+    to {transform: translateY(-20px); opacity: 1;}
+  }
+  
+  @-webkit-keyframes stay {
+      from {transform: translateY(-20px); opacity: 1;}
+      to {transform: translateY(-20px); opacity: 1;}
+    }
+    
+    @keyframes stay {
+      from {transform: translateY(-20px); opacity: 1;}
+      to {transform: translateY(-20px); opacity: 1;}
+    }
+
+  @-webkit-keyframes fadeout {
+    from {transform: translateY(-20px); opacity: 1;}
+    to {transform: translateY(0); opacity: 0;}
+  }
+  
+  @keyframes fadeout {
+    from {transform: translateY(-20px); opacity: 1;}
+    to {transform: translateY(0); opacity: 0;}
+  }
