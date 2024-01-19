@@ -1,0 +1,76 @@
+.player {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 5px;
+  width: 18rem;
+  overflow: hidden;
+  color: var(--color);
+  fill: var(--color);
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+
+.notSelectedPlayer {
+  --color: black;
+  background-color: var(--surface-200);
+}
+
+.notSelectedPlayer:hover {
+  background-color: var(--primary-300);
+}
+
+.selectedPlayer {
+  --color: white;
+  background-color: var(--primary-500);
+}
+
+.selectedPlayer:hover {
+  background-color: var(--primary-600);
+}
+
+.pfp {
+  display: block;
+  border-radius: 5px;
+}
+
+.playerInfo {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.65rem;
+}
+
+.osu {
+  display: flex;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.rank {
+  margin-top: 0.15rem;
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.discord {
+  margin-top: 0.3rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.discordIcon {
+  margin-right: 0.25rem;
+  height: 0.85rem;
+  fill: inherit;
+}
+
+.externalLinkIcon {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  stroke: var(--color);
+  animation: var(--animate-fade-in) 0.1s ease-out;
+}

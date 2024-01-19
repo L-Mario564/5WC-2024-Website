@@ -1,0 +1,141 @@
+.pageContainer {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  width: 100vw;
+  height: calc(100vh - var(--navbar-height));
+  z-index: 2;
+}
+
+.teamContainer {
+  display: grid;
+  grid-template-rows: 50% 50%;
+  height: calc(100vh - var(--navbar-height));
+}
+
+.header {
+  padding: 0.25rem;
+  padding-left: 0.75rem;
+  font-weight: bold;
+  font-size: 1.25rem;
+  background-color: var(--surface-800);
+  border-bottom: 2px var(--surface-950) solid;
+}
+
+.scroll {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.playersContainer {
+  display: flex;
+  height: max-content;
+  min-height: 3rem;
+  margin: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.roster,
+.backup,
+.candidates {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.roster {
+  border-bottom: 2px var(--surface-950) solid;
+}
+
+.candidates {
+  border-left: 2px var(--surface-950) solid;
+}
+
+.modalContainer {
+  position: fixed;
+  left: 0;
+  bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  animation: slide-in-modal 0.3s ease forwards;
+  z-index: 3;
+}
+
+.modal {
+  padding: 1rem;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-direction: row;
+  max-width: 30rem;
+}
+
+.helpBtnContainer {
+  position: fixed;
+  right: 0;
+  bottom: 1rem;
+  z-index: 4;
+}
+
+.helpBtn {
+  margin-right: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  background-color: white;
+  border-radius: 100%;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+
+.helpBtn:hover {
+  background-color: var(--surface-200);
+}
+
+@keyframes slide-in-modal {
+  0% {
+    bottom: -10rem;
+  }
+  100% {
+    bottom: 1rem;
+  }
+}
+
+@media only screen and (max-width: 1070px) {
+  .pageContainer {
+    grid-template-columns: 50% 50%;
+  }
+}
+
+@media only screen and (max-width: 675px) {
+  .pageContainer {
+    grid-template-columns: 100%;
+    height: max-content;
+  }
+
+  .teamContainer {
+    grid-template-rows: max-content max-content;
+    height: max-content;
+  }
+
+  .playersContainer {
+    justify-content: center;
+  }
+
+  .backup {
+    border-bottom: 2px var(--surface-950) solid;
+  }
+
+  .candidates {
+    border-left: none;
+  }
+}

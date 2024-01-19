@@ -2,9 +2,11 @@
   max-width: 1000px;
   margin: 120px auto;
   padding: 0 3em;
+  opacity: 0;
+  animation: var(--animate-fade-in) 0.4s ease 0.15s forwards;
 
   & :is(h1, h2, h3, strong) {
-    color: var(--primary-900);
+    color: var(--primary-500);
   }
 
   & table {
@@ -15,8 +17,9 @@
     border: 1px solid;
 
     & thead {
-      background-color: var(--primary-100);
-      color: var(--primary-900);
+      background-color: var(--primary-700);
+      color: var(--primary-200);
+
       & tr {
         border-bottom: 1px solid;
       }
@@ -37,7 +40,7 @@
 }
 
 @media only screen and (max-width: 700px) {
-  .container  {
+  .container {
     padding: 0 2em;
   }
 }

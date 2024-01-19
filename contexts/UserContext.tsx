@@ -3,6 +3,7 @@ import { useState, useMemo, createContext } from 'react';
 import { useAsyncEffect } from '@/utils/hooks';
 import { buildApiUrl } from '@/utils';
 import { authUserResponseSchema } from '@/utils/schemas';
+import { z } from 'zod';
 import type { ReactNode } from 'react';
 import type { AuthUser } from '@/utils/types';
 
@@ -14,20 +15,19 @@ type Props = {
 
 export default function UserProvider({ children }: Props): JSX.Element {
   const [user, setUser] = useState<AuthUser | null>(null);
-  
+
   useAsyncEffect(async (): Promise<void> => {
     let resp: Response | undefined;
-    const url = buildApiUrl('/auth/session');
+    let url = buildApiUrl('/auth/session');
 
     try {
       resp = await fetch(url, {
         credentials: 'include'
       });
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
-    
-    
+
     if (!resp?.ok) {
       const data = await resp?.text();
       console.info('Response: ' + data);
@@ -35,25 +35,58 @@ export default function UserProvider({ children }: Props): JSX.Element {
       return;
     }
 
-    const data = await resp.json();
-    const parsed = authUserResponseSchema.safeParse(data);
+    let data = await resp.text();
+    const parsedUser = authUserResponseSchema.safeParse(JSON.parse(data));
 
-    if (!parsed.success) {
+    if (!parsedUser.success) {
       // TODO: Display error to user / improve error handling
       console.info('Response: ' + data);
       throw Error(`Server (at "${url}") sent a response different than the one expected`);
     }
-    
-    const user = parsed.data;
 
-    if (user.logged_in_user_id !== null && user.osu !== null && user.discord !== null) {
-      setUser(user as AuthUser);
+    const user = parsedUser.data;
+
+    if (user.logged_in_user_id === null || user.osu === null || user.discord === null) return;
+
+    url = buildApiUrl(`/registrants/${user.logged_in_user_id}`);
+
+    try {
+      resp = await fetch(url, {
+        credentials: 'include'
+      });
+    } catch (err) {
+      console.error(err);
     }
+
+    if (!resp?.ok) {
+      const data = await resp?.text();
+      console.info('Response: ' + data);
+      // TODO: Display error to user
+      return;
+    }
+
+    data = await resp.text();
+    const parsedRegistrant = z
+      .object({
+        is_organizer: z.boolean()
+      })
+      .safeParse(JSON.parse(data));
+
+    if (!parsedRegistrant.success) {
+      // TODO: Display error to user / improve error handling
+      console.info('Response: ' + data);
+      throw Error(`Server (at "${url}") sent a response different than the one expected`);
+    }
+
+    const registrant = parsedRegistrant.data;
+
+    setUser({
+      ...user,
+      ...registrant
+    } as AuthUser);
   }, []);
 
   return (
-    <UserContext.Provider value={useMemo(() => user, [user])}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={useMemo(() => user, [user])}>{children}</UserContext.Provider>
   );
 }
