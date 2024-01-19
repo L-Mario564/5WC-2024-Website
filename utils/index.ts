@@ -2,6 +2,26 @@
 // @ts-ignore The current file is a CommonJS module whose imports will produce 'require' calls;
 import { env } from '@/env.mjs';
 
+/**
+ * Wraps tables parsed from markdown to make them responsive
+ */
+export function wrapTables(querySelector: string) {
+  const content = document.querySelector(querySelector);
+  const tables = document.querySelectorAll('table');
+
+  if (!content) return;
+
+  tables.forEach((el) => {
+    const div = document.createElement('div');
+    div.style.overflowX = 'auto';
+    div.appendChild(el.cloneNode(true));
+
+    if (content.contains(el)) {
+      content.replaceChild(div, el);
+    }
+  });
+}
+
 export function buildApiUrl(endpoint: string) {
   return `${env.NEXT_PUBLIC_API_URL}${endpoint}`;
 }
