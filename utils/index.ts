@@ -25,3 +25,7 @@ export function getCsrfToken() {
 
   return cookieValue;
 }
+
+export function formatRank(n: number) {
+  return `#${Math.round(n).toLocaleString('en-US')}`
+}
