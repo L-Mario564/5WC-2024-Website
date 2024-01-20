@@ -3,6 +3,13 @@ import { z } from 'zod';
 
 const defaultUrl = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 
+/**
+ * @param {string|undefined} n
+ */
+function numberOrUndefined(n) {
+  return n? Number(n) : undefined;
+}
+
 export const env = createEnv({
   server: {
     NODE_ENV: z.enum(['development', 'test', 'production']).default('development')
@@ -14,6 +21,8 @@ export const env = createEnv({
     NEXT_PUBLIC_DISCORD_SERVER_INVITE: z.string().url(),
     NEXT_PUBLIC_TEAM_MIN_PLAYERS: z.number().int(),
     NEXT_PUBLIC_TEAM_MAX_PLAYERS: z.number().int(),
+    NEXT_PUBLIC_TEAM_MIN_BACKUPS: z.number().int(),
+    NEXT_PUBLIC_TEAM_MAX_BACKUPS: z.number().int(),
     NEXT_PUBLIC_REGISTRATION_START_DATE: z
       .number()
       .int()
@@ -29,18 +38,12 @@ export const env = createEnv({
     NEXT_PUBLIC_ORIGIN: process.env.NEXT_PUBLIC_ORIGIN,
     NEXT_PUBLIC_MAIN_SHEET_URL: process.env.NEXT_PUBLIC_MAIN_SHEET_URL || defaultUrl,
     NEXT_PUBLIC_DISCORD_SERVER_INVITE: process.env.NEXT_PUBLIC_DISCORD_SERVER_INVITE || defaultUrl,
-    NEXT_PUBLIC_TEAM_MIN_PLAYERS: process.env.NEXT_PUBLIC_TEAM_MIN_PLAYERS
-      ? Number(process.env.NEXT_PUBLIC_TEAM_MIN_PLAYERS)
-      : undefined,
-    NEXT_PUBLIC_TEAM_MAX_PLAYERS: process.env.NEXT_PUBLIC_TEAM_MAX_PLAYERS
-      ? Number(process.env.NEXT_PUBLIC_TEAM_MAX_PLAYERS)
-      : undefined,
-    NEXT_PUBLIC_REGISTRATION_START_DATE: process.env.NEXT_PUBLIC_REGISTRATION_START_DATE
-      ? Number(process.env.NEXT_PUBLIC_REGISTRATION_START_DATE)
-      : undefined,
-    NEXT_PUBLIC_REGISTRATION_END_DATE: process.env.NEXT_PUBLIC_REGISTRATION_END_DATE
-      ? Number(process.env.NEXT_PUBLIC_REGISTRATION_END_DATE)
-      : undefined
+    NEXT_PUBLIC_TEAM_MIN_PLAYERS: numberOrUndefined(process.env.NEXT_PUBLIC_TEAM_MIN_PLAYERS),
+    NEXT_PUBLIC_TEAM_MAX_PLAYERS: numberOrUndefined(process.env.NEXT_PUBLIC_TEAM_MAX_PLAYERS),
+    NEXT_PUBLIC_TEAM_MIN_BACKUPS: numberOrUndefined(process.env.NEXT_PUBLIC_TEAM_MIN_BACKUPS),
+    NEXT_PUBLIC_TEAM_MAX_BACKUPS: numberOrUndefined(process.env.NEXT_PUBLIC_TEAM_MAX_BACKUPS),
+    NEXT_PUBLIC_REGISTRATION_START_DATE: numberOrUndefined(process.env.NEXT_PUBLIC_REGISTRATION_START_DATE),
+    NEXT_PUBLIC_REGISTRATION_END_DATE: numberOrUndefined(process.env.NEXT_PUBLIC_REGISTRATION_END_DATE)
   },
   skipValidation: false
 });

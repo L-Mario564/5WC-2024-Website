@@ -3,6 +3,7 @@
 import clsx from 'clsx';
 import AuthenticatedUser from '@/components/Navbar/User/AuthenticatedUser';
 import ResponsiveNavBar from '@/components/Navbar/Responsive/ResponsiveNavbar';
+import Logo from '@/components/Logo/Logo';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -73,7 +74,7 @@ export default function Navbar() {
       ) : undefined}
       <nav className={styles.navbar}>
         <Link href='/'>
-          <Image alt='logo' src='/logo.png' width={55} height={55} className={styles.logo} />
+          <Logo className={styles.logo} />
         </Link>
         <ul className={styles.routes}>
           {links.map(({ href, label }) => (

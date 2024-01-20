@@ -9,7 +9,7 @@ type Props = {
 export default function Toast({ error }: Props) {
   return (
     <div className={styles.toast}>
-      <div className={styles.code}>Error{error?.statusCode ? ' : ' + error.statusCode : ''}</div>
+      <div className={styles.code}>Error{error?.statusCode ? ': ' + error.statusCode : ''}</div>
       <div>{error?.info}</div>
     </div>
   );

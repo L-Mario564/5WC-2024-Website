@@ -1,16 +1,32 @@
 .pageContainer {
+  --time-left-height: 2rem;
+
   position: relative;
   display: grid;
-  grid-template-columns: 40% 60%;
+  grid-template-columns: 25% 75%;
   width: 100vw;
   height: calc(100vh - var(--navbar-height));
   z-index: 2;
 }
 
+.timeLeft {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--time-left-height);
+  grid-column-start: 1;
+  grid-column-end: 3;
+  color: black;
+  font-weight: 500;
+  background-color: var(--primary-500);
+  border-bottom: 2px var(--surface-950) solid;
+}
+
 .teamContainer {
   display: grid;
-  grid-template-rows: 50% 50%;
-  height: calc(100vh - var(--navbar-height));
+  grid-template-rows: 60% 40%;
+  height: calc(100vh - var(--navbar-height) - var(--time-left-height));
 }
 
 .header {
@@ -56,6 +72,25 @@
   border-left: 2px var(--surface-950) solid;
 }
 
+.pagination {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--surface-900);
+  border-top: 2px var(--surface-950) solid;
+}
+
+.pageBtn {
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  font-weight: bold;
+  font-size: 1.25rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .modalContainer {
   position: fixed;
   left: 0;
@@ -72,7 +107,12 @@
   gap: 0.5rem;
   justify-content: center;
   flex-direction: row;
-  max-width: 30rem;
+  width: max-content;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
 }
 
 .helpBtnContainer {
@@ -110,6 +150,12 @@
   }
 }
 
+@media only screen and (max-width: 1400px) {
+  .pageContainer {
+    grid-template-columns: 35% 65%;
+  }
+}
+
 @media only screen and (max-width: 1070px) {
   .pageContainer {
     grid-template-columns: 50% 50%;
@@ -120,6 +166,13 @@
   .pageContainer {
     grid-template-columns: 100%;
     height: max-content;
+  }
+  
+  .timeLeft {
+    padding: 0.5rem 5rem;
+    height: max-content;
+    grid-column-start: 1;
+    grid-column-end: 2;
   }
 
   .teamContainer {
@@ -137,5 +190,11 @@
 
   .candidates {
     border-left: none;
+  }
+
+  .helpBtnContainer {
+    right: -0.5rem;
+    top: calc(var(--navbar-height) + 0.5rem);
+    bottom: initial;
   }
 }

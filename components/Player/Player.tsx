@@ -10,6 +10,8 @@ type Props = {
   player: PlayerT;
   isSelected?: boolean;
   holdingCtrl: boolean;
+  disableWhenInRoster?: boolean;
+  disabled?: boolean;
   onClick: () => void;
 };
 
@@ -20,8 +22,8 @@ function PlayerContent({ player, holdingCtrl }: Pick<Props, 'player' | 'holdingC
         className={styles.pfp}
         alt={`pfp-${player.user_id}`}
         src={`https://a.ppy.sh/${player.osu_user_id}`}
-        width={48}
-        height={48}
+        width={56}
+        height={56}
       />
       <div className={styles.playerInfo}>
         <span className={styles.osu}>{player.osu_username}</span>
@@ -39,19 +41,41 @@ function PlayerContent({ player, holdingCtrl }: Pick<Props, 'player' | 'holdingC
   );
 }
 
-export default function Player({ player, onClick, isSelected, holdingCtrl }: Props) {
+export default function Player({ player, onClick, isSelected, holdingCtrl, disableWhenInRoster, disabled }: Props) {
   const className = clsx(
     styles.player,
     isSelected ? styles.selectedPlayer : styles.notSelectedPlayer
   );
 
-  return holdingCtrl ? (
-    <a className={className} href={`https://osu.ppy.sh/users/${player.osu_user_id}`}>
-      <PlayerContent player={player} holdingCtrl={holdingCtrl} />
-    </a>
-  ) : (
-    <button className={className} onClick={onClick}>
-      <PlayerContent player={player} holdingCtrl={holdingCtrl} />
-    </button>
+  return (
+    <div className={styles.container}>
+      {(player.in_roster || player.in_backup_roster) && disableWhenInRoster ? (
+        holdingCtrl ? (
+          <a className={styles.disabledText} href={`https://osu.ppy.sh/users/${player.osu_user_id}`}>
+            {player.in_roster ? 'Roster' : 'Backup'}
+          </a>
+        ) : (
+          <div className={clsx(styles.disabledText, styles.notAllowedCursor)}>
+            {player.in_roster ? 'Roster' : 'Backup'}
+          </div>
+        )
+      ) : undefined}
+      {holdingCtrl ? (
+        <a className={clsx(
+          className,
+          ((player.in_roster || player.in_backup_roster) && disableWhenInRoster) || disabled ? styles.playerDisabled : undefined
+        )} href={`https://osu.ppy.sh/users/${player.osu_user_id}`}>
+          <PlayerContent player={player} holdingCtrl={holdingCtrl} />
+        </a>
+      ) : (
+        <button
+          className={className}
+          onClick={onClick}
+          disabled={((player.in_roster || player.in_backup_roster) && disableWhenInRoster) || disabled}
+        >
+          <PlayerContent player={player} holdingCtrl={holdingCtrl} />
+        </button>
+      )}
+    </div>
   );
 }

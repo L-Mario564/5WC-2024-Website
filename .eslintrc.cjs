@@ -34,7 +34,7 @@ const config = {
     'brace-style': ['warn', '1tbs'],
     'comma-dangle': ['warn', 'never'],
     'default-case': 'error',
-    'prefer-const': 'off',
+    'prefer-const': 'warn',
     '@typescript-eslint/no-inferrable-types': 'off',
     'quote-props': ['warn', 'consistent'],
     'unused-export-let': 'off',
