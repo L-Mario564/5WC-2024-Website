@@ -5,7 +5,6 @@ import AuthenticatedUser from '@/components/Navbar/User/AuthenticatedUser';
 import ResponsiveNavBar from '@/components/Navbar/Responsive/ResponsiveNavbar';
 import Logo from '@/components/Logo/Logo';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useUser } from '@/utils/hooks';
 import { useState } from 'react';

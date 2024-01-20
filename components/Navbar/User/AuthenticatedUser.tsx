@@ -109,7 +109,7 @@ export default function AuthenticatedUser({ user }: Props) {
       console.error(message);
       console.info('Response: ' + data);
       console.info('CSRF token: ' + csrf);
-      
+
       setError({
         info: message,
         statusCode: resp?.status

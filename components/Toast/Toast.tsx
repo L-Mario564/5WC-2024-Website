@@ -1,6 +1,6 @@
 'use client';
 import type { ClientError } from '@/utils/types';
-import styles from './Toast.module.scss'
+import styles from './Toast.module.scss';
 
 type Props = {
   error: ClientError;

@@ -39,7 +39,9 @@ export default function OrganizeTeamPage() {
     if (!user || !refresh) return;
 
     let resp: Response | undefined;
-    let url = buildApiUrl(`/teams/${user.osu.country.code}/members?limit=${fetchLimit}&page=${page}`);
+    const url = buildApiUrl(
+      `/teams/${user.osu.country.code}/members?limit=${fetchLimit}&page=${page}`
+    );
 
     try {
       resp = await fetch(url, {
@@ -63,12 +65,12 @@ export default function OrganizeTeamPage() {
       return;
     }
 
-    let data = await resp.text();
+    const data = await resp.text();
     const parsedTeam = teamSchema.safeParse(JSON.parse(data));
 
     if (!parsedTeam.success) {
       const message = `Server (at "${url}") sent a response different than the one expected while getting the team data`;
-      
+
       console.error(message);
       console.info('Response: ' + data);
 
@@ -131,7 +133,7 @@ export default function OrganizeTeamPage() {
     setSelectedUserIds((userIds) => {
       if (userIds.includes(playerUserId)) {
         userIds = userIds.filter((userId) => userId !== playerUserId);
-        return [... userIds];
+        return [...userIds];
       }
 
       if (selectedUserIds.length < maxSelect) {
@@ -166,7 +168,7 @@ export default function OrganizeTeamPage() {
     if (movingTo === 'roster') {
       if (players.length > env.NEXT_PUBLIC_TEAM_MAX_PLAYERS) {
         setError({
-          info: `Move less players to meet the maximum roster size of ${env.NEXT_PUBLIC_TEAM_MAX_PLAYERS}`,
+          info: `Move less players to meet the maximum roster size of ${env.NEXT_PUBLIC_TEAM_MAX_PLAYERS}`
         });
         return;
       }
@@ -175,7 +177,7 @@ export default function OrganizeTeamPage() {
     } else if (movingTo === 'backup') {
       if (backups.length > env.NEXT_PUBLIC_TEAM_MAX_BACKUPS) {
         setError({
-          info: `Move less players to meet the maximum amount of ${env.NEXT_PUBLIC_TEAM_MAX_BACKUPS} backup players`,
+          info: `Move less players to meet the maximum amount of ${env.NEXT_PUBLIC_TEAM_MAX_BACKUPS} backup players`
         });
         return;
       }
@@ -184,14 +186,14 @@ export default function OrganizeTeamPage() {
     } else {
       if (players.length < env.NEXT_PUBLIC_TEAM_MIN_PLAYERS) {
         setError({
-          info: `Move less players to meet the minimmum roster size of ${env.NEXT_PUBLIC_TEAM_MIN_PLAYERS}`,
+          info: `Move less players to meet the minimmum roster size of ${env.NEXT_PUBLIC_TEAM_MIN_PLAYERS}`
         });
         return;
       }
 
       if (backups.length < env.NEXT_PUBLIC_TEAM_MIN_BACKUPS) {
         setError({
-          info: `Move less players to meet the minimmum amount of ${env.NEXT_PUBLIC_TEAM_MIN_BACKUPS} backup players`,
+          info: `Move less players to meet the minimmum amount of ${env.NEXT_PUBLIC_TEAM_MIN_BACKUPS} backup players`
         });
         return;
       }
@@ -207,7 +209,9 @@ export default function OrganizeTeamPage() {
     }
 
     let resp: Response | undefined;
-    const url = buildApiUrl(`/teams/${user?.osu.country.code}/members/?limit=${fetchLimit}&page=${page}`);
+    const url = buildApiUrl(
+      `/teams/${user?.osu.country.code}/members/?limit=${fetchLimit}&page=${page}`
+    );
     const body = JSON.stringify({ players, backups });
 
     try {
@@ -220,7 +224,7 @@ export default function OrganizeTeamPage() {
           'X-CSRFToken': csrf
         }
       });
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
 
@@ -239,12 +243,12 @@ export default function OrganizeTeamPage() {
 
     setSelectedUserIds([]);
 
-    let data = await resp.text();
+    const data = await resp.text();
     const parsedTeam = teamSchema.safeParse(JSON.parse(data));
 
     if (!parsedTeam.success) {
       const message = `Server (at "${url}") sent a response different than the one expected while updating the team data`;
-      
+
       console.error(message);
       console.info('Response: ' + data);
 
@@ -258,12 +262,12 @@ export default function OrganizeTeamPage() {
     setPageCount(Math.ceil(parsedTeam.data.candidates.count / fetchLimit));
   }
 
-  function mapToUserId(player: { user_id: number; }) {
+  function mapToUserId(player: { user_id: number }) {
     return player.user_id;
   }
 
-  function filterSelectedIds(id: number) { 
-    return !selectedUserIds.includes(id)
+  function filterSelectedIds(id: number) {
+    return !selectedUserIds.includes(id);
   }
 
   async function candidateToRoster() {
@@ -331,7 +335,9 @@ export default function OrganizeTeamPage() {
       <div className={styles.pageContainer}>
         <div className={styles.timeLeft}>
           {env.NEXT_PUBLIC_REGISTRATION_END_DATE.getTime() > new Date().getTime()
-            ? `You have ${formatTimeLeft(env.NEXT_PUBLIC_REGISTRATION_END_DATE)} left to set your roster and backup players`
+            ? `You have ${formatTimeLeft(
+                env.NEXT_PUBLIC_REGISTRATION_END_DATE
+              )} left to set your roster and backup players`
             : 'You can no longer make any changes to your roster or backup players'}
         </div>
         <div className={styles.teamContainer}>
@@ -343,7 +349,9 @@ export default function OrganizeTeamPage() {
                   <Player
                     key={`roster-${player.user_id}`}
                     player={player}
-                    isSelected={selectedUserIds.includes(player.user_id) && selectingFrom === 'roster'}
+                    isSelected={
+                      selectedUserIds.includes(player.user_id) && selectingFrom === 'roster'
+                    }
                     onClick={() => onUserBtnClick(player.user_id, 'roster')}
                     holdingCtrl={ctrl}
                     disabled={selectingFrom && selectingFrom !== 'roster'}
@@ -360,7 +368,9 @@ export default function OrganizeTeamPage() {
                   <Player
                     key={`backups-${player.user_id}`}
                     player={player}
-                    isSelected={selectedUserIds.includes(player.user_id) && selectingFrom === 'backup'}
+                    isSelected={
+                      selectedUserIds.includes(player.user_id) && selectingFrom === 'backup'
+                    }
                     onClick={() => onUserBtnClick(player.user_id, 'backup')}
                     holdingCtrl={ctrl}
                     disabled={selectingFrom && selectingFrom !== 'backup'}
@@ -378,7 +388,9 @@ export default function OrganizeTeamPage() {
                 <Player
                   key={`candidates-${player.user_id}`}
                   player={player}
-                  isSelected={selectedUserIds.includes(player.user_id) && selectingFrom === 'candidate'}
+                  isSelected={
+                    selectedUserIds.includes(player.user_id) && selectingFrom === 'candidate'
+                  }
                   onClick={() => onUserBtnClick(player.user_id, 'candidate')}
                   holdingCtrl={ctrl}
                   disabled={selectingFrom && selectingFrom !== 'candidate'}
@@ -392,19 +404,20 @@ export default function OrganizeTeamPage() {
               {pages.map((pageNumber) => (
                 <button
                   key={`page-${pageNumber}`}
-                  className={clsx(
-                    page === pageNumber ? 'btn btn-primary' : 'btn',
-                    styles.pageBtn
-                  )}
+                  className={clsx(page === pageNumber ? 'btn btn-primary' : 'btn', styles.pageBtn)}
                   onClick={() => changePage(pageNumber)}
-                >{pageNumber}</button>
+                >
+                  {pageNumber}
+                </button>
               ))}
             </div>
           ) : undefined}
         </div>
       </div>
       <div className={styles.helpBtnContainer}>
-        <button onClick={toggleHelp} className={styles.helpBtn}>?</button>
+        <button onClick={toggleHelp} className={styles.helpBtn}>
+          ?
+        </button>
       </div>
       {showHelp ? (
         <div className='backdrop'>
@@ -444,24 +457,40 @@ export default function OrganizeTeamPage() {
       {selectedUserIds.length > 0 && (
         <div className={styles.modalContainer}>
           <div className={clsx('modal', styles.modal)}>
-            <span className={styles.counter}>{selectedUserIds.length} / {maxSelect}</span>
+            <span className={styles.counter}>
+              {selectedUserIds.length} / {maxSelect}
+            </span>
             {selectingFrom === 'candidate' ? (
               <>
-                <button onClick={candidateToRoster} className='btn'>Roster</button>
-                <button onClick={candidateToBackup} className='btn'>Backup</button>
+                <button onClick={candidateToRoster} className='btn'>
+                  Roster
+                </button>
+                <button onClick={candidateToBackup} className='btn'>
+                  Backup
+                </button>
               </>
             ) : selectingFrom === 'backup' ? (
               <>
-                <button onClick={backupToCandidate} className='btn'>Candidate</button>
-                <button onClick={backupToRoster} className='btn'>Roster</button>
+                <button onClick={backupToCandidate} className='btn'>
+                  Candidate
+                </button>
+                <button onClick={backupToRoster} className='btn'>
+                  Roster
+                </button>
               </>
             ) : (
               <>
-                <button onClick={rosterToCandidate} className='btn'>Candidate</button>
-                <button onClick={rosterToBackup} className='btn'>Backup</button>
+                <button onClick={rosterToCandidate} className='btn'>
+                  Candidate
+                </button>
+                <button onClick={rosterToBackup} className='btn'>
+                  Backup
+                </button>
               </>
             )}
-            <button onClick={deselectAll} className='btn btn-error'>Deselect</button>
+            <button onClick={deselectAll} className='btn btn-error'>
+              Deselect
+            </button>
           </div>
         </div>
       )}

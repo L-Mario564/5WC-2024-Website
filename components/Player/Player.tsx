@@ -41,7 +41,14 @@ function PlayerContent({ player, holdingCtrl }: Pick<Props, 'player' | 'holdingC
   );
 }
 
-export default function Player({ player, onClick, isSelected, holdingCtrl, disableWhenInRoster, disabled }: Props) {
+export default function Player({
+  player,
+  onClick,
+  isSelected,
+  holdingCtrl,
+  disableWhenInRoster,
+  disabled
+}: Props) {
   const className = clsx(
     styles.player,
     isSelected ? styles.selectedPlayer : styles.notSelectedPlayer
@@ -51,7 +58,10 @@ export default function Player({ player, onClick, isSelected, holdingCtrl, disab
     <div className={styles.container}>
       {(player.in_roster || player.in_backup_roster) && disableWhenInRoster ? (
         holdingCtrl ? (
-          <a className={styles.disabledText} href={`https://osu.ppy.sh/users/${player.osu_user_id}`}>
+          <a
+            className={styles.disabledText}
+            href={`https://osu.ppy.sh/users/${player.osu_user_id}`}
+          >
             {player.in_roster ? 'Roster' : 'Backup'}
           </a>
         ) : (
@@ -61,17 +71,24 @@ export default function Player({ player, onClick, isSelected, holdingCtrl, disab
         )
       ) : undefined}
       {holdingCtrl ? (
-        <a className={clsx(
-          className,
-          ((player.in_roster || player.in_backup_roster) && disableWhenInRoster) || disabled ? styles.playerDisabled : undefined
-        )} href={`https://osu.ppy.sh/users/${player.osu_user_id}`}>
+        <a
+          className={clsx(
+            className,
+            ((player.in_roster || player.in_backup_roster) && disableWhenInRoster) ?? disabled
+              ? styles.playerDisabled
+              : undefined
+          )}
+          href={`https://osu.ppy.sh/users/${player.osu_user_id}`}
+        >
           <PlayerContent player={player} holdingCtrl={holdingCtrl} />
         </a>
       ) : (
         <button
           className={className}
           onClick={onClick}
-          disabled={((player.in_roster || player.in_backup_roster) && disableWhenInRoster) || disabled}
+          disabled={
+            ((player.in_roster || player.in_backup_roster) && disableWhenInRoster) ?? disabled
+          }
         >
           <PlayerContent player={player} holdingCtrl={holdingCtrl} />
         </button>

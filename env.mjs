@@ -7,7 +7,7 @@ const defaultUrl = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
  * @param {string|undefined} n
  */
 function numberOrUndefined(n) {
-  return n? Number(n) : undefined;
+  return n ? Number(n) : undefined;
 }
 
 export const env = createEnv({
@@ -42,8 +42,12 @@ export const env = createEnv({
     NEXT_PUBLIC_TEAM_MAX_PLAYERS: numberOrUndefined(process.env.NEXT_PUBLIC_TEAM_MAX_PLAYERS),
     NEXT_PUBLIC_TEAM_MIN_BACKUPS: numberOrUndefined(process.env.NEXT_PUBLIC_TEAM_MIN_BACKUPS),
     NEXT_PUBLIC_TEAM_MAX_BACKUPS: numberOrUndefined(process.env.NEXT_PUBLIC_TEAM_MAX_BACKUPS),
-    NEXT_PUBLIC_REGISTRATION_START_DATE: numberOrUndefined(process.env.NEXT_PUBLIC_REGISTRATION_START_DATE),
-    NEXT_PUBLIC_REGISTRATION_END_DATE: numberOrUndefined(process.env.NEXT_PUBLIC_REGISTRATION_END_DATE)
+    NEXT_PUBLIC_REGISTRATION_START_DATE: numberOrUndefined(
+      process.env.NEXT_PUBLIC_REGISTRATION_START_DATE
+    ),
+    NEXT_PUBLIC_REGISTRATION_END_DATE: numberOrUndefined(
+      process.env.NEXT_PUBLIC_REGISTRATION_END_DATE
+    )
   },
   skipValidation: false
 });

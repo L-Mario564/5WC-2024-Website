@@ -11,7 +11,6 @@ export default function LoginPage() {
   useEffect(() => {
     setShouldFetchedState(true);
   }, []);
-  
 
   useAsyncEffect(async () => {
     if (!shouldFetch) return;
