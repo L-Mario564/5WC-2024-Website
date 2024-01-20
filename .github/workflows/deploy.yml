@@ -10,9 +10,12 @@ jobs:
     uses: ./.github/workflows/build.yml
   deploy-to-R2:
     runs-on: ubuntu-latest
+    needs: build-static
     steps:
       - uses: actions/download-artifact@v4
-        name: static-build-output
+        with:
+          name: static-build-output
+
       - name: List all files
         run: ls -lah
 #      - name: Upload files to R2
