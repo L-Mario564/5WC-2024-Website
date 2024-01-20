@@ -10,18 +10,19 @@ jobs:
     uses: ./.github/workflows/build.yml
   deploy-to-R2:
     runs-on: ubuntu-latest
+    environment: production
     needs: build-static
     steps:
       - uses: actions/download-artifact@v4
         with:
           name: static-build-output
 
-      - name: List all files
+      - name: List files
         run: ls -lah
-#      - name: Upload files to R2
-#        run: aws s3 sync ./out s3://5wc
-#        env:
-#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          AWS_ENDPOINT_URL: ${{ secrets.AWS_ENDPOINT_URL }}
 
+      - name: Upload files to R2
+        run: aws s3 sync . s3://5wc
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ENDPOINT_URL: ${{ secrets.AWS_ENDPOINT_URL }}
