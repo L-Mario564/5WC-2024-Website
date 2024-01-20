@@ -26,6 +26,10 @@ env:
   NEXT_PUBLIC_TEAM_MIN_PLAYERS: 6
   # {number} Maximum amount of players within a roster
   NEXT_PUBLIC_TEAM_MAX_PLAYERS: 8
+  # {number} Minimum amount of players within a backup roster
+  NEXT_PUBLIC_TEAM_MIN_BACKUPS: 0
+  # {number} Maximum amount of players within a backup roster
+  NEXT_PUBLIC_TEAM_MAX_BACKUPS: 3
   # {number} Date in which users can log in. Represented in milliseconds
   NEXT_PUBLIC_REGISTRATION_START_DATE: 1705946400000
   # {number} Date in which organizers are no longer able to make changes to the roster (including backup players). Represented in milliseconds
