@@ -18,11 +18,12 @@ jobs:
           name: static-build-output
           path: output
 
-      - name: Change workdir and list files
-        run: cd output && ls -la
+      - name: List files
+        run: ls -la output/
 
       - name: Upload files to R2
-        run: aws --debug --endpoint-url ${{ secrets.AWS_ENDPOINT_URL }} s3 sync --delete . s3://5wc
+        working-directory: ./app
+        run: aws s3 sync --delete . s3://5wc
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
