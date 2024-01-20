@@ -48,7 +48,7 @@ export default function UserProvider({ children }: Props): JSX.Element {
 
     if (!parsedUser.success) {
       const message = `Server (at "${url}") sent a response different than the one expected while getting the session data`;
-      
+
       console.error(message);
       console.info('Response: ' + data);
 

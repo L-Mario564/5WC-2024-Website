@@ -51,4 +51,29 @@ export function formatRank(n: number) {
   return `#${Math.round(n).toLocaleString('en-US')}`;
 }
 
+export function formatTimeLeft(date: Date) {
+  const now = new Date();
+  const diffInSeconds = Math.floor((date.getTime() - now.getTime()) / 1000);
+  const thresholds = {
+    years: 31536000,
+    months: 2592000,
+    days: 86400,
+    hours: 3600,
+    minutes: 60,
+    seconds: 1
+  };
+
+  for (const unit in thresholds) {
+    const threshold = thresholds[unit as keyof typeof thresholds];
+    const delta = Math.round(Math.abs(diffInSeconds) / threshold);
+
+    if (delta >= 1) {
+      const unitLabel = delta === 1 ? unit.slice(0, -1) : unit;
+      return `${delta} ${unitLabel}`;
+    }
+  }
+
+  return '0 seconds';
+}
+
 export { env };

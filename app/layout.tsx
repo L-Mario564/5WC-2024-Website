@@ -16,9 +16,7 @@ const barlowFont = Barlow({
 function ToastError() {
   const { error } = useError();
 
-  return error ? (
-    <Toast error={error} />
-  ) : <></>;
+  return error ? <Toast error={error} /> : <></>;
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -26,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang='en'>
       <head>
         <title>5WC | 5 Digit World Cup 2024</title>
-        <link rel="icon" href="/logo.png" />
+        <link rel='icon' href='/logo.png' />
       </head>
       <ErrorProvider>
         <UserProvider>
