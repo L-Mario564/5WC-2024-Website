@@ -1,0 +1,56 @@
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches: [ "main" ]
+  pull_request:
+#    inputs:
+#      config-path:
+#        required: true
+#        type: string
+#      secrets:
+#        envPAT:
+#          required: true
+
+env:
+  NODE_ENV: production
+  # {string} URL of the 5WC API (whether it be a local dev server or a deployed test server, and without a trailing slash)
+  NEXT_PUBLIC_API_URL: https://api.stagec.xyz
+  # {string} URL of the 5WC frontend (this is set mainly when working with a reverse proxy. URL must not have a trailing slash)
+  NEXT_PUBLIC_ORIGIN: https://5wc.stagec.xyz
+  # {string} URL of the main sheet spreadsheet
+  NEXT_PUBLIC_MAIN_SHEET_URL: https://www.youtube.com/watch?v=pL9o_BwSN-o
+  # {string} URL of the 5WC Discord server invite
+  NEXT_PUBLIC_DISCORD_SERVER_INVITE: https://www.youtube.com/watch?v=pL9o_BwSN-o
+  # {number} Minimum amount of players required for a roster
+  NEXT_PUBLIC_TEAM_MIN_PLAYERS: 6
+  # {number} Maximum amount of players within a roster
+  NEXT_PUBLIC_TEAM_MAX_PLAYERS: 8
+  # {number} Date in which users can log in. Represented in milliseconds
+  NEXT_PUBLIC_REGISTRATION_START_DATE: 1705946400000
+  # {number} Date in which organizers are no longer able to make changes to the roster (including backup players). Represented in milliseconds
+  NEXT_PUBLIC_REGISTRATION_END_DATE: 1707696000000
+
+jobs:
+  build-job:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+      - uses: actions/setup-node@v4
+        with:
+          # Version Spec of the version to use in SemVer notation.
+          # It also emits such aliases as lts, latest, nightly and canary builds
+          # Examples: 12.x, 10.15.1, >=10.15.0, lts/Hydrogen, 16-nightly, latest, node
+          node-version: '18.x'
+      - name: Install Dependencies
+        run: npm i
+      - name: Build dist
+        run: npm run build
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-build-output
+          path: out
