@@ -6,6 +6,8 @@ on:
       - '*'           # Push events to every tag not containing /
 
 jobs:
+  build-static:
+    uses: ./.github/workflows/build.yml
   deploy-to-R2:
     runs-on: ubuntu-latest
     steps:
