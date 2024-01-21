@@ -12,7 +12,7 @@ env:
   # {string} URL of the 5WC frontend (this is set mainly when working with a reverse proxy. URL must not have a trailing slash)
   NEXT_PUBLIC_ORIGIN: https://5wc.stagec.xyz
   # {string} URL of the main sheet spreadsheet
-  NEXT_PUBLIC_MAIN_SHEET_URL: https://www.youtube.com/watch?v=pL9o_BwSN-o
+  NEXT_PUBLIC_MAIN_SHEET_URL: https://docs.google.com/spreadsheets/d/1tvuuNvbr4xzjTPl-z3hu19Q44pWgIS3tiIRndvpGtj8/edit#gid=704469651
   # {string} URL of the 5WC Discord server invite
   NEXT_PUBLIC_DISCORD_SERVER_INVITE: https://discord.gg/WxX2UkdSMq
   # {number} Minimum amount of players required for a roster
