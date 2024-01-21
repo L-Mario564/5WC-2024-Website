@@ -118,7 +118,7 @@ export default function AuthenticatedUser({ user }: Props) {
     }
 
     closeAllModals();
-    location.reload();
+    location.href = env.NEXT_PUBLIC_ORIGIN;
   }
 
   function changeDiscordAccount() {
