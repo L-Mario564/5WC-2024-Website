@@ -1,11 +1,23 @@
 .container {
-  max-width: 1000px;
-  margin: 120px auto;
-  padding: 0 3em;
-  opacity: 0;
-  animation: var(--animate-fade-in) 0.4s ease 0.15s forwards;
+  --nm: #3b82f6;
+  --hd: #eab308;
+  --hr: #ef4444;
+  --dt: #a855f7;
+  --fm: #f97316;
+  --ez: #22c55e;
+  --tb: #ec4899;
+  --fl: #71717a;
 
-  & :is(h1, h2, h3, strong) {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1.5rem 3em;
+  opacity: 0;
+  background-color: rgba(31, 31, 35, 0.9);
+  animation: var(--animate-fade-in) 0.4s ease 0.15s forwards;
+  z-index: 2;
+
+  & :is(h1, h2, h3, h4) {
     color: var(--primary-500);
   }
 
@@ -14,28 +26,81 @@
     min-width: max-content;
     border-collapse: collapse;
     text-align: center;
-    border: 1px solid;
 
-    & thead {
-      background-color: var(--primary-700);
-      color: var(--primary-200);
-
-      & tr {
-        border-bottom: 1px solid;
-      }
+    & thead > tr {
+      font-weight: 500;
+      color: var(--primary-300);
+      border-bottom: 2px var(--primary-500) solid;
     }
 
-    & td + td,
-    th + th {
-      border-left: 1px solid;
-      padding: 8px 16px;
-    }
-    tr + tr {
-      border-top: 1px solid;
-    }
     td {
       padding: 8px 16px;
     }
+  }
+
+  // Mappools table
+  & table:first-child {
+    & thead,
+    tbody {
+      & tr {
+        & td:nth-child(2) {
+          border-left: 2px var(--primary-500) solid;
+        }
+
+        & td:nth-child(6) {
+          color: var(--nm);
+          border-left: 2px var(--primary-500) solid;
+        }
+
+        & td:nth-child(7) {
+          color: var(--hd);
+        }
+
+        & td:nth-child(8) {
+          color: var(--hr);
+        }
+
+        & td:nth-child(9) {
+          color: var(--dt);
+        }
+
+        & td:nth-child(10) {
+          color: var(--fm);
+        }
+
+        & td:nth-child(11) {
+          color: var(--tb);
+        }
+
+        & td:nth-child(12) {
+          border-left: 2px var(--primary-500) solid;
+        }
+      }
+    }
+  }
+
+  // Schedule table
+  & table:nth-child(2) {
+    & thead,
+    tbody {
+      & tr {
+        & td:nth-child(1) {
+          border-left: 2px var(--primary-500) solid;
+        }
+      }
+    }
+  }
+
+  & ul,
+  ol {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  & li > ol {
+    list-style-type: lower-alpha;
+    margin-top: 0.5rem;
   }
 }
 
