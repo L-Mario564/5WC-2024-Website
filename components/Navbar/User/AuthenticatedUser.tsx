@@ -122,7 +122,10 @@ export default function AuthenticatedUser({ user }: Props) {
   }
 
   function changeDiscordAccount() {
-    location.href = `${env.NEXT_PUBLIC_ORIGIN}/api/auth/discord`;
+    const loginUrl = `${env.NEXT_PUBLIC_ORIGIN}/login`;
+    location.href = buildApiUrl(
+      `/auth/discord/prompt_login/?return_page=${encodeURI(loginUrl)}`
+    );
   }
 
   return (
