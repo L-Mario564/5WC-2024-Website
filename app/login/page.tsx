@@ -48,10 +48,14 @@ export default function LoginPage() {
       {promptDiscord ? (
         <div className='backdrop'>
           <div className='modal'>
-            <h2>Successfully Logged In</h2>
+            <h2>Successfully Logged In & Registered</h2>
+            {/* Ain't creating stylesheet just for this */}
+            <p style={{ color: '#10b981', marginBottom: '0' }}>
+              Your authentication was successful. You are now eligible to play for your country.
+            </p>
             <p>
-              Your authentication was successful. Make sure you&apos;re part of the 5WC Discord
-              server. Being part of the server is a <b>REQUIREMENT</b> to be eligible to play.
+              Make sure you are in the 5WC Discord
+              server. Players are <b>REQUIRED</b> to be in the Discord server in order to be eligible for play.
             </p>
             <div className='btn-container'>
               <a
