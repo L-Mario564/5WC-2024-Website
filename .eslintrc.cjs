@@ -40,7 +40,8 @@ const config = {
     'unused-export-let': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
     '@next/next/no-img-element': 'off',
-    '@typescript-eslint/no-misused-promises': 'off'
+    '@typescript-eslint/no-misused-promises': 'off',
+    '@typescript-eslint/prefer-nullish-coalescing': 'off'
   }
 };
 

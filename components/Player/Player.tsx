@@ -56,17 +56,27 @@ export default function Player({
 
   return (
     <div className={styles.container}>
-      {((player.in_roster || player.in_backup_roster) && disableWhenInRoster) || (player.rank_standard_bws ?? 0) < 10_000 || (player.rank_standard_bws ?? 0) > 99_999 ? (
+      {((player.in_roster || player.in_backup_roster) && disableWhenInRoster) ||
+      (player.rank_standard_bws ?? 0) < 10_000 ||
+      (player.rank_standard_bws ?? 0) > 99_999 ? (
         holdingCtrl ? (
           <a
             className={styles.disabledText}
             href={`https://osu.ppy.sh/users/${player.osu_user_id}`}
           >
-            {(player.rank_standard_bws ?? 0) < 10_000 || (player.rank_standard_bws ?? 0) > 99_999 ? 'Ineligible' : player.in_roster ? 'Roster' : 'Reserved'}
+            {(player.rank_standard_bws ?? 0) < 10_000 || (player.rank_standard_bws ?? 0) > 99_999
+              ? 'Ineligible'
+              : player.in_roster
+              ? 'Roster'
+              : 'Reserved'}
           </a>
         ) : (
           <div className={clsx(styles.disabledText, styles.notAllowedCursor)}>
-            {(player.rank_standard_bws ?? 0) < 10_000 || (player.rank_standard_bws ?? 0) > 99_999 ? 'Ineligible' : player.in_roster ? 'Roster' : 'Reserved'}
+            {(player.rank_standard_bws ?? 0) < 10_000 || (player.rank_standard_bws ?? 0) > 99_999
+              ? 'Ineligible'
+              : player.in_roster
+              ? 'Roster'
+              : 'Reserved'}
           </div>
         )
       ) : undefined}

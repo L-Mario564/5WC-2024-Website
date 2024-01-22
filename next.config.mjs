@@ -16,8 +16,8 @@ const config = {
   reactStrictMode: true,
   images: {
     loader: 'custom',
-    loaderFile: './utils/ppyImageLoader.ts',
-  },
+    loaderFile: './utils/ppyImageLoader.ts'
+  }
 };
 
 export default withMDX(config);

@@ -337,11 +337,14 @@ export default function OrganizeTeamPage() {
           <div className={styles.roster}>
             <div className={styles.header}>
               Roster
-              <span className={styles.counter}>{team.roster.length} / {env.NEXT_PUBLIC_TEAM_MAX_PLAYERS}</span>
+              <span className={styles.counter}>
+                {team.roster.length} / {env.NEXT_PUBLIC_TEAM_MAX_PLAYERS}
+              </span>
             </div>
             {team.roster.length > 0 && team.roster.length < env.NEXT_PUBLIC_TEAM_MIN_PLAYERS ? (
               <div className={styles.warning}>
-                <strong>Warning:</strong> You must have at least {env.NEXT_PUBLIC_TEAM_MIN_PLAYERS} players
+                <strong>Warning:</strong> You must have at least {env.NEXT_PUBLIC_TEAM_MIN_PLAYERS}{' '}
+                players
               </div>
             ) : undefined}
             <div className={styles.scroll}>
@@ -364,11 +367,14 @@ export default function OrganizeTeamPage() {
           <div className={styles.backup}>
             <div className={styles.header}>
               Reserved Players
-              <span className={styles.counter}>{team.backups.length} / {env.NEXT_PUBLIC_TEAM_MAX_BACKUPS}</span>
+              <span className={styles.counter}>
+                {team.backups.length} / {env.NEXT_PUBLIC_TEAM_MAX_BACKUPS}
+              </span>
             </div>
             {team.backups.length > 0 && team.backups.length < env.NEXT_PUBLIC_TEAM_MIN_BACKUPS ? (
               <div className={styles.warning}>
-                <strong>Warning:</strong> You must have at least {env.NEXT_PUBLIC_TEAM_MIN_BACKUPS} players
+                <strong>Warning:</strong> You must have at least {env.NEXT_PUBLIC_TEAM_MIN_BACKUPS}{' '}
+                players
               </div>
             ) : undefined}
             <div className={styles.scroll}>
@@ -402,7 +408,11 @@ export default function OrganizeTeamPage() {
                   }
                   onClick={() => onUserBtnClick(player.user_id, 'candidate')}
                   holdingCtrl={ctrl}
-                  disabled={(selectingFrom && selectingFrom !== 'candidate') || (player.rank_standard_bws ?? 0) < 10_000 || (player.rank_standard_bws ?? 0) > 99_999}
+                  disabled={
+                    (selectingFrom && selectingFrom !== 'candidate') ||
+                    (player.rank_standard_bws ?? 0) < 10_000 ||
+                    (player.rank_standard_bws ?? 0) > 99_999
+                  }
                   disableWhenInRoster
                 />
               ))}
@@ -444,10 +454,13 @@ export default function OrganizeTeamPage() {
             </span>
             <ul>
               <li>
-                - The roster must consist of <b>at least {env.NEXT_PUBLIC_TEAM_MIN_PLAYERS}</b> players, and <b>at most {env.NEXT_PUBLIC_TEAM_MAX_PLAYERS}</b>.
+                - The roster must consist of <b>at least {env.NEXT_PUBLIC_TEAM_MIN_PLAYERS}</b>{' '}
+                players, and <b>at most {env.NEXT_PUBLIC_TEAM_MAX_PLAYERS}</b>.
               </li>
               <li>
-                - The reserved players roster must consist of <b>at least {env.NEXT_PUBLIC_TEAM_MIN_BACKUPS}</b> players, and <b>at most {env.NEXT_PUBLIC_TEAM_MAX_BACKUPS}</b>.
+                - The reserved players roster must consist of{' '}
+                <b>at least {env.NEXT_PUBLIC_TEAM_MIN_BACKUPS}</b> players, and{' '}
+                <b>at most {env.NEXT_PUBLIC_TEAM_MAX_BACKUPS}</b>.
               </li>
               <li>
                 - Click on a player to select or deselect them. If you want to visit a user&apos;s
