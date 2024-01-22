@@ -4,13 +4,6 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-#    inputs:
-#      config-path:
-#        required: true
-#        type: string
-#      secrets:
-#        envPAT:
-#          required: true
 
 env:
   NODE_ENV: production
@@ -19,9 +12,9 @@ env:
   # {string} URL of the 5WC frontend (this is set mainly when working with a reverse proxy. URL must not have a trailing slash)
   NEXT_PUBLIC_ORIGIN: https://5wc.stagec.xyz
   # {string} URL of the main sheet spreadsheet
-  NEXT_PUBLIC_MAIN_SHEET_URL: https://www.youtube.com/watch?v=pL9o_BwSN-o
+  NEXT_PUBLIC_MAIN_SHEET_URL: https://docs.google.com/spreadsheets/d/1tvuuNvbr4xzjTPl-z3hu19Q44pWgIS3tiIRndvpGtj8/edit#gid=704469651
   # {string} URL of the 5WC Discord server invite
-  NEXT_PUBLIC_DISCORD_SERVER_INVITE: https://www.youtube.com/watch?v=pL9o_BwSN-o
+  NEXT_PUBLIC_DISCORD_SERVER_INVITE: https://discord.gg/WxX2UkdSMq
   # {number} Minimum amount of players required for a roster
   NEXT_PUBLIC_TEAM_MIN_PLAYERS: 6
   # {number} Maximum amount of players within a roster
@@ -38,16 +31,12 @@ env:
 jobs:
   build-job:
     runs-on: ubuntu-latest
-    environment: production
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: 'recursive'
       - uses: actions/setup-node@v4
         with:
-          # Version Spec of the version to use in SemVer notation.
-          # It also emits such aliases as lts, latest, nightly and canary builds
-          # Examples: 12.x, 10.15.1, >=10.15.0, lts/Hydrogen, 16-nightly, latest, node
           node-version: '18.x'
       - name: Install Dependencies
         run: npm i
