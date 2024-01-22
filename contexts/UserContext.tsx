@@ -7,14 +7,15 @@ import { z } from 'zod';
 import type { ReactNode } from 'react';
 import type { AuthUser } from '@/utils/types';
 
-export const UserContext = createContext<AuthUser | null>(null);
+// undefined means that it hasn't fetched data, null means that the user isn't login
+export const UserContext = createContext<AuthUser | null | undefined>(undefined);
 
 type Props = {
   children: ReactNode;
 };
 
 export default function UserProvider({ children }: Props): JSX.Element {
-  const [user, setUser] = useState<AuthUser | null>(null);
+  const [user, setUser] = useState<AuthUser | null | undefined>(undefined);
   const { setError } = useError();
 
   useAsyncEffect(async (): Promise<void> => {
@@ -60,7 +61,10 @@ export default function UserProvider({ children }: Props): JSX.Element {
 
     const user = parsedUser.data;
 
-    if (user.logged_in_user_id === null || user.osu === null || user.discord === null) return;
+    if (user.logged_in_user_id === null || user.osu === null || user.discord === null) {
+      setUser(null);
+      return;
+    }
 
     url = buildApiUrl(`/registrants/${user.logged_in_user_id}`);
 

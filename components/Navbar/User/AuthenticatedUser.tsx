@@ -170,7 +170,7 @@ export default function AuthenticatedUser({ user }: Props) {
       {showMenu ? (
         <div ref={menuRef} className={styles.menu}>
           <ul>
-            {user ? (
+            {user.is_organizer ? (
               <li>
                 <Link href='/manage-team'>Manage Team</Link>
               </li>

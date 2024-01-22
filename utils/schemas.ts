@@ -24,7 +24,7 @@ export const authUserResponseSchema = z.object({
       id: z.string(),
       username: z.string(),
       avatar: z.string().nullable(),
-      global_name: z.string()
+      global_name: z.string().nullable()
     })
     .nullable(),
   osu: z

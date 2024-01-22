@@ -78,7 +78,7 @@ export default function Navbar() {
         <ul className={styles.routes}>
           {links.map(({ href, label }) => (
             <li key={label} className={clsx(pathname === href ? styles.active : null)}>
-              {href.startsWith('/') ? <Link href={href}>{label}</Link> : <a href={href}>{label}</a>}
+              {href.startsWith('/') ? <Link href={href}>{label}</Link> : <a href={href} target='_blank'>{label}</a>}
             </li>
           ))}
         </ul>
@@ -86,11 +86,15 @@ export default function Navbar() {
         {env.NEXT_PUBLIC_REGISTRATION_START_DATE.getTime() <= new Date().getTime() ? (
           user ? (
             <AuthenticatedUser user={user} />
-          ) : (
+          ) : user === null ? (
             <div className={styles.loginBtnContainer}>
               <button className='btn btn-primary' onClick={onLoginBtnClick}>
                 Log In
               </button>
+            </div>
+          ) : (
+            <div className={styles.loading}>
+              Loading...
             </div>
           )
         ) : undefined}
