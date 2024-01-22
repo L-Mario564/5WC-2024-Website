@@ -15,8 +15,9 @@ const config = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   reactStrictMode: true,
   images: {
-    domains: ['a.ppy.sh']
-  }
+    loader: 'custom',
+    loaderFile: './utils/ppyImageLoader.ts',
+  },
 };
 
 export default withMDX(config);
