@@ -173,11 +173,32 @@ export default function OrganizeTeamPage() {
         return;
       }
 
+      if (players.length < env.NEXT_PUBLIC_TEAM_MIN_PLAYERS) {
+        setError({
+          info: `Move more players to meet the minimmum roster size of ${env.NEXT_PUBLIC_TEAM_MIN_PLAYERS}`
+        });
+        return;
+      }
+
       msgIfError = 'Failed to move player to roster';
     } else if (movingTo === 'backup') {
+      if (players.length < env.NEXT_PUBLIC_TEAM_MIN_PLAYERS) {
+        setError({
+          info: 'Form the roster before backing up players'
+        });
+        return;
+      }
+
       if (backups.length > env.NEXT_PUBLIC_TEAM_MAX_BACKUPS) {
         setError({
           info: `Move less players to meet the maximum amount of ${env.NEXT_PUBLIC_TEAM_MAX_BACKUPS} backup players`
+        });
+        return;
+      }
+
+      if (backups.length < env.NEXT_PUBLIC_TEAM_MIN_BACKUPS) {
+        setError({
+          info: `Move more players to meet the minimmum amount of ${env.NEXT_PUBLIC_TEAM_MIN_BACKUPS} backup players`
         });
         return;
       }
