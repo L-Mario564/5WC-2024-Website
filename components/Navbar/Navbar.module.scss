@@ -63,6 +63,12 @@
   }
 }
 
+.loading {
+  margin-left: auto;
+  margin-right: 20px;
+  color: var(--surface-300);
+}
+
 @media only screen and (max-width: 1410px) {
   .routes {
     gap: 0 4.5em;
