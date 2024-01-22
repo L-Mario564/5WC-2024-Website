@@ -54,7 +54,11 @@ export default function LoginPage() {
               server. Being part of the server is a <b>REQUIREMENT</b> to be eligible to play.
             </p>
             <div className='btn-container'>
-              <a href={env.NEXT_PUBLIC_DISCORD_SERVER_INVITE} className='btn btn-primary' target='_blank'>
+              <a
+                href={env.NEXT_PUBLIC_DISCORD_SERVER_INVITE}
+                className='btn btn-primary'
+                target='_blank'
+              >
                 Join Discord
               </a>
               <a href={env.NEXT_PUBLIC_ORIGIN} className='btn'>

@@ -123,9 +123,7 @@ export default function AuthenticatedUser({ user }: Props) {
 
   function changeDiscordAccount() {
     const loginUrl = `${env.NEXT_PUBLIC_ORIGIN}/login`;
-    location.href = buildApiUrl(
-      `/auth/discord/prompt_login/?return_page=${encodeURI(loginUrl)}`
-    );
+    location.href = buildApiUrl(`/auth/discord/prompt_login/?return_page=${encodeURI(loginUrl)}`);
   }
 
   return (
@@ -174,7 +172,7 @@ export default function AuthenticatedUser({ user }: Props) {
           <ul>
             {user ? (
               <li>
-                <Link href='/organize-team'>Organize Team</Link>
+                <Link href='/manage-team'>Manage Team</Link>
               </li>
             ) : undefined}
             <li>

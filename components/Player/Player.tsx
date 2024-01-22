@@ -56,17 +56,27 @@ export default function Player({
 
   return (
     <div className={styles.container}>
-      {(player.in_roster || player.in_backup_roster) && disableWhenInRoster ? (
+      {((player.in_roster || player.in_backup_roster) && disableWhenInRoster) ||
+      (player.rank_standard_bws ?? 0) < 10_000 ||
+      (player.rank_standard_bws ?? 0) > 99_999 ? (
         holdingCtrl ? (
           <a
             className={styles.disabledText}
             href={`https://osu.ppy.sh/users/${player.osu_user_id}`}
           >
-            {player.in_roster ? 'Roster' : 'Backup'}
+            {(player.rank_standard_bws ?? 0) < 10_000 || (player.rank_standard_bws ?? 0) > 99_999
+              ? 'Ineligible'
+              : player.in_roster
+              ? 'Roster'
+              : 'Reserved'}
           </a>
         ) : (
           <div className={clsx(styles.disabledText, styles.notAllowedCursor)}>
-            {player.in_roster ? 'Roster' : 'Backup'}
+            {(player.rank_standard_bws ?? 0) < 10_000 || (player.rank_standard_bws ?? 0) > 99_999
+              ? 'Ineligible'
+              : player.in_roster
+              ? 'Roster'
+              : 'Reserved'}
           </div>
         )
       ) : undefined}
@@ -74,7 +84,7 @@ export default function Player({
         <a
           className={clsx(
             className,
-            ((player.in_roster || player.in_backup_roster) && disableWhenInRoster) ?? disabled
+            ((player.in_roster || player.in_backup_roster) && disableWhenInRoster) || disabled
               ? styles.playerDisabled
               : undefined
           )}
@@ -87,7 +97,7 @@ export default function Player({
           className={className}
           onClick={onClick}
           disabled={
-            ((player.in_roster || player.in_backup_roster) && disableWhenInRoster) ?? disabled
+            ((player.in_roster || player.in_backup_roster) && disableWhenInRoster) || disabled
           }
         >
           <PlayerContent player={player} holdingCtrl={holdingCtrl} />

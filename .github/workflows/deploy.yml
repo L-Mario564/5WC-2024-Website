@@ -3,7 +3,7 @@ on:
   push:
     # Pattern matched against refs/tags
     tags:
-      - '*'           # Push events to every tag not containing /
+      - '*' # Push events to every tag not containing /
 
 jobs:
   build-static:

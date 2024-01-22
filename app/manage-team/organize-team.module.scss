@@ -30,11 +30,33 @@
 }
 
 .header {
+  display: flex;
+  align-items: center;
   padding: 0.25rem;
   padding-left: 0.75rem;
   font-weight: bold;
   font-size: 1.25rem;
   background-color: var(--surface-800);
+  border-bottom: 2px var(--surface-950) solid;
+}
+
+.counter {
+  margin-left: 0.5rem;
+  padding: 0.15rem 0.5rem;
+  display: inline-block;
+  color: black;
+  font-weight: 600;
+  font-size: 0.9rem;
+  background-color: white;
+  border-radius: 0.25rem;
+}
+
+.warning {
+  padding: 0.15rem 0.5rem;
+  color: black;
+  text-align: center;
+  font-size: 0.95rem;
+  background-color: var(--error-300);
   border-bottom: 2px var(--surface-950) solid;
 }
 
@@ -108,11 +130,6 @@
   justify-content: center;
   flex-direction: row;
   width: max-content;
-}
-
-.counter {
-  display: flex;
-  align-items: center;
 }
 
 .helpBtnContainer {
