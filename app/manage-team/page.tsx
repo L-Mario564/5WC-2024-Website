@@ -36,7 +36,7 @@ export default function OrganizeTeamPage() {
   }, []);
 
   useAsyncEffect(async () => {
-    if (!user || !refresh) return;
+    if ((!user || !refresh) || (user && !user.is_organizer)) return;
 
     let resp: Response | undefined;
     const url = buildApiUrl(
