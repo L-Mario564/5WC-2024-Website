@@ -22,7 +22,7 @@ export default function OrganizeTeamPage() {
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
   const [pages, setPages] = useState<number[]>([]);
-  const maxSelect = 10;
+  const maxSelect = Math.max(env.NEXT_PUBLIC_TEAM_MAX_PLAYERS, env.NEXT_PUBLIC_TEAM_MAX_BACKUPS);
   const fetchLimit = 50;
 
   useEffect(() => {
@@ -173,52 +173,24 @@ export default function OrganizeTeamPage() {
         return;
       }
 
-      if (players.length < env.NEXT_PUBLIC_TEAM_MIN_PLAYERS) {
-        setError({
-          info: `Move more players to meet the minimmum roster size of ${env.NEXT_PUBLIC_TEAM_MIN_PLAYERS}`
-        });
-        return;
-      }
-
       msgIfError = 'Failed to move player to roster';
     } else if (movingTo === 'backup') {
       if (players.length < env.NEXT_PUBLIC_TEAM_MIN_PLAYERS) {
         setError({
-          info: 'Form the roster before backing up players'
+          info: 'Form the roster before marking players as reserved'
         });
         return;
       }
 
       if (backups.length > env.NEXT_PUBLIC_TEAM_MAX_BACKUPS) {
         setError({
-          info: `Move less players to meet the maximum amount of ${env.NEXT_PUBLIC_TEAM_MAX_BACKUPS} backup players`
+          info: `Move less players to meet the maximum amount of ${env.NEXT_PUBLIC_TEAM_MAX_BACKUPS} reserved players`
         });
         return;
       }
 
-      if (backups.length < env.NEXT_PUBLIC_TEAM_MIN_BACKUPS) {
-        setError({
-          info: `Move more players to meet the minimmum amount of ${env.NEXT_PUBLIC_TEAM_MIN_BACKUPS} backup players`
-        });
-        return;
-      }
-
-      msgIfError = 'Failed to move player to backup roster';
+      msgIfError = 'Failed to move player to reserved players roster';
     } else {
-      if (players.length < env.NEXT_PUBLIC_TEAM_MIN_PLAYERS) {
-        setError({
-          info: `Move less players to meet the minimmum roster size of ${env.NEXT_PUBLIC_TEAM_MIN_PLAYERS}`
-        });
-        return;
-      }
-
-      if (backups.length < env.NEXT_PUBLIC_TEAM_MIN_BACKUPS) {
-        setError({
-          info: `Move less players to meet the minimmum amount of ${env.NEXT_PUBLIC_TEAM_MIN_BACKUPS} backup players`
-        });
-        return;
-      }
-
       msgIfError = 'Failed to move player to list of candidates';
     }
 
@@ -358,12 +330,20 @@ export default function OrganizeTeamPage() {
           {env.NEXT_PUBLIC_REGISTRATION_END_DATE.getTime() > new Date().getTime()
             ? `You have ${formatTimeLeft(
                 env.NEXT_PUBLIC_REGISTRATION_END_DATE
-              )} left to set your roster and backup players`
-            : 'You can no longer make any changes to your roster or backup players'}
+              )} left to set your roster and reserved players`
+            : 'You can no longer make any changes to your roster or reserved players'}
         </div>
         <div className={styles.teamContainer}>
           <div className={styles.roster}>
-            <div className={styles.header}>Roster</div>
+            <div className={styles.header}>
+              Roster
+              <span className={styles.counter}>{team.roster.length} / {env.NEXT_PUBLIC_TEAM_MAX_PLAYERS}</span>
+            </div>
+            {team.roster.length > 0 && team.roster.length < env.NEXT_PUBLIC_TEAM_MIN_PLAYERS ? (
+              <div className={styles.warning}>
+                <strong>Warning:</strong> You must have at least {env.NEXT_PUBLIC_TEAM_MIN_PLAYERS} players
+              </div>
+            ) : undefined}
             <div className={styles.scroll}>
               <div className={styles.playersContainer}>
                 {team.roster.map((player) => (
@@ -382,7 +362,15 @@ export default function OrganizeTeamPage() {
             </div>
           </div>
           <div className={styles.backup}>
-            <div className={styles.header}>Backup Players</div>
+            <div className={styles.header}>
+              Reserved Players
+              <span className={styles.counter}>{team.backups.length} / {env.NEXT_PUBLIC_TEAM_MAX_BACKUPS}</span>
+            </div>
+            {team.backups.length > 0 && team.backups.length < env.NEXT_PUBLIC_TEAM_MIN_BACKUPS ? (
+              <div className={styles.warning}>
+                <strong>Warning:</strong> You must have at least {env.NEXT_PUBLIC_TEAM_MIN_BACKUPS} players
+              </div>
+            ) : undefined}
             <div className={styles.scroll}>
               <div className={styles.playersContainer}>
                 {team.backups.map((player) => (
@@ -414,7 +402,7 @@ export default function OrganizeTeamPage() {
                   }
                   onClick={() => onUserBtnClick(player.user_id, 'candidate')}
                   holdingCtrl={ctrl}
-                  disabled={selectingFrom && selectingFrom !== 'candidate'}
+                  disabled={(selectingFrom && selectingFrom !== 'candidate') || (player.rank_standard_bws ?? 0) < 10_000 || (player.rank_standard_bws ?? 0) > 99_999}
                   disableWhenInRoster
                 />
               ))}
@@ -446,7 +434,7 @@ export default function OrganizeTeamPage() {
             <h2>Help</h2>
             <p>
               In this dashboard, you can organize your country&apos;s team. Players within
-              &quot;Roster&quot; are part of the team while &quot;Backup Players&quot; are players
+              &quot;Roster&quot; are part of the team while &quot;Reserved Players&quot; are players
               that can be used to replace players within the roster in case they get screened.
               &quot;Candidates&quot; are registered players that you can choose to do nothing with
               or move them to the other previously mentioned categories.
@@ -456,11 +444,10 @@ export default function OrganizeTeamPage() {
             </span>
             <ul>
               <li>
-                - The roster must consist of <b>at least 5</b> players, and <b>at most 8</b>.
+                - The roster must consist of <b>at least {env.NEXT_PUBLIC_TEAM_MIN_PLAYERS}</b> players, and <b>at most {env.NEXT_PUBLIC_TEAM_MAX_PLAYERS}</b>.
               </li>
               <li>
-                - You can have no backup players if you so chooose to, but you{' '}
-                <b>can&apos;t have more than 3</b>.
+                - The reserved players roster must consist of <b>at least {env.NEXT_PUBLIC_TEAM_MIN_BACKUPS}</b> players, and <b>at most {env.NEXT_PUBLIC_TEAM_MAX_BACKUPS}</b>.
               </li>
               <li>
                 - Click on a player to select or deselect them. If you want to visit a user&apos;s
@@ -478,34 +465,31 @@ export default function OrganizeTeamPage() {
       {selectedUserIds.length > 0 && (
         <div className={styles.modalContainer}>
           <div className={clsx('modal', styles.modal)}>
-            <span className={styles.counter}>
-              {selectedUserIds.length} / {maxSelect}
-            </span>
             {selectingFrom === 'candidate' ? (
               <>
                 <button onClick={candidateToRoster} className='btn'>
                   Roster
                 </button>
                 <button onClick={candidateToBackup} className='btn'>
-                  Backup
+                  Reserve
                 </button>
               </>
             ) : selectingFrom === 'backup' ? (
               <>
-                <button onClick={backupToCandidate} className='btn'>
-                  Candidate
-                </button>
                 <button onClick={backupToRoster} className='btn'>
                   Roster
+                </button>
+                <button onClick={backupToCandidate} className='btn btn-primary'>
+                  Remove
                 </button>
               </>
             ) : (
               <>
-                <button onClick={rosterToCandidate} className='btn'>
-                  Candidate
-                </button>
                 <button onClick={rosterToBackup} className='btn'>
-                  Backup
+                  Reserve
+                </button>
+                <button onClick={rosterToCandidate} className='btn btn-primary'>
+                  Remove
                 </button>
               </>
             )}

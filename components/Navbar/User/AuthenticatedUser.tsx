@@ -174,7 +174,7 @@ export default function AuthenticatedUser({ user }: Props) {
           <ul>
             {user ? (
               <li>
-                <Link href='/organize-team'>Organize Team</Link>
+                <Link href='/manage-team'>Manage Team</Link>
               </li>
             ) : undefined}
             <li>

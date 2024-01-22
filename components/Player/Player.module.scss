@@ -41,6 +41,9 @@
 .playerDisabled,
 .player:disabled {
   opacity: 0.25;
+}
+
+.player:disabled {
   cursor: not-allowed;
 }
 
