@@ -28,13 +28,14 @@ export default function LoginPage() {
 
     if (!resp?.ok) {
       const message = 'Failed to log in';
-      const data = await resp?.text();
+      const data = await resp?.text(); // In case the response is not JSON for some reason
+      const json = JSON.parse(data || '{}') as Record<string, unknown>;
 
       console.error(message);
       console.info('Response: ' + data);
 
       setError({
-        info: message,
+        info: json?.error === 'user disqualified' ? `${message}. You have been disqualified from playing by an administrator` : message,
         statusCode: resp?.status
       });
       return;
